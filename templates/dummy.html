@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
     <head></head>
     <body>
         <form method="POST" action="dummy">
@@ -16,4 +16,45 @@
             <input type="submit" name="submit">
         </form>
     </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Form</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <form method="POST" action="dummy" class="col-md-6 offset-md-3">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="options">Select an option:</label>
+                <select class="form-control" id="options" name="name">
+                    <option value="" selected disabled>Select an option</option>
+                    <option value="1">Announcement</option>
+                    <option value="2">SlideShow</option>
+                    <option value="3">Video</option>
+                    <option value="4">TimeTable</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
 </html>

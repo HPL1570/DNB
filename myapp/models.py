@@ -15,3 +15,4 @@ class Dummy(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to='videos/')    
+    boolval=models.IntegerField(default=0)

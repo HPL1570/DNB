@@ -13,6 +13,7 @@ urlpatterns=[
     path('boolchange',views.boolchange,name='boolchange'),
     path('dummy',views.dummy,name='dummy'),
     path('storevideo',views.storevideo,name='storevideo'),
+    path('selectvideo',views.selectvideo,name='selectvideo'),
 
     ]
 if settings.DEBUG:

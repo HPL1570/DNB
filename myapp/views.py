@@ -13,7 +13,7 @@ def display1(request):
     obj2=obj1[l-1];
     dt=obj2.text
     imgs=StoreImages.objects.filter(boolval=1)
-    vd=Video.objects.all()
+    vd=Video.objects.filter(boolval=1)
     return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd})
 def storetext(request):
     if request.method=='POST':
@@ -53,12 +53,31 @@ def boolchange(request):
 
         return redirect(home)
     return render(request,"home.html")
+def selectvideo(request):
+    if request.method=="POST":
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        Video.objects.all().update(boolval=0);
+        Video.objects.filter(id__in=valid_ids).update(boolval=1);
+        return redirect(home)
+        
+    vd=Video.objects.all()
+    return render(request,"selectvideo.html",{'videos':vd})
 def dummy(request):
     if request.method=='POST':
         val=request.POST['name']
+
         Dummy.objects.all().delete()
         obj=Dummy.objects.create(val=val)
         obj.save();
+        if(val=="1"):
+            return redirect(storetext)
+        if(val=="2"):
+            return redirect(domainimage)
+        if(val=="3"):
+            return redirect(selectvideo)
+        
         return redirect(home)
     return render(request,"dummy.html")
 def storevideo(request):
