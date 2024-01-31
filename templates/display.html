@@ -1,1 +1,73 @@
-<h1>{{data}}</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Updated styling with background color and increased text size */
+        * {
+            background-color: white;
+            color: #088395;
+        }
+
+        #typing-text {
+            font-family: monospace;
+            white-space: pre-wrap;
+            /* Allow text to wrap to the next line */
+            overflow: hidden;
+            border-right: 1px solid #000;
+            font-size: 24px;
+            /* Increase text size */
+           /* background-color: #12b0e5; /*Change background color */ padding: 10px;
+            /* Add padding for better visibility */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Create a container for the typing effect -->
+    <div id="typing-text"></div>
+    {% for i in imgs %}
+    <li>
+        
+        <strong>Image:</strong> <img src="{{i.image.url}}"  width="200" height="200"><br>
+      
+        
+        <!-- Add other fields as needed -->
+    </li>
+    {% endfor %}
+
+    <script>
+        // JavaScript to create typing effect
+        const textToType = "{{data}}";
+        let index = 0;
+        const speed = 50; // Adjust the speed in milliseconds
+
+        function typeText() {
+            document.getElementById('typing-text').textContent += textToType.charAt(index);
+            index++;
+
+            if (index < textToType.length) {
+                setTimeout(typeText, speed);
+            }
+        }
+
+        // Start the typing effect when the page loads
+        window.onload = function () {
+            typeText();
+        };
+    </script>
+    <script>
+        // Function to refresh the page
+        function refreshPage() {
+            location.reload(true); // true forces a reload from the server, not from the cache
+        }
+
+        // Set a timer to call the refreshPage function every 5 minutes (300,000 milliseconds)
+        setTimeout(refreshPage, 60000);
+    </script>
+</body>
+
+</html>
