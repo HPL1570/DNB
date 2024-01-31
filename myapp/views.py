@@ -9,7 +9,7 @@ def display1(request):
     l=len(obj1)
     obj2=obj1[l-1];
     dt=obj2.text
-    imgs=StoreImages.objects.all()
+    imgs=StoreImages.objects.filter(boolval=1)
     return render(request,'display.html',{'data':dt,'imgs':imgs})
 def storetext(request):
     if request.method=='POST':
@@ -32,3 +32,20 @@ def storeImage(request):
         obj.save();
         return redirect(home)
     return render(request,"storeImage.html")
+def domainimage(request):
+    obj1=StoreImages.objects.filter(name="Placements")
+    obj2=StoreImages.objects.filter(name="Internships")
+    obj3=StoreImages.objects.filter(name="sports")
+    obj4=StoreImages.objects.filter(name="Achievements")
+    return render(request,"display_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+def boolchange(request):
+    if request.method=='POST':
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        #YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+        StoreImages.objects.all().update(boolval=0);
+        StoreImages.objects.filter(id__in=valid_ids).update(boolval=1);
+
+        return redirect(home)
+    return render(request,"home.html")

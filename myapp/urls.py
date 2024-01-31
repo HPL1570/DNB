@@ -9,6 +9,8 @@ urlpatterns=[
     path('storetext',views.storetext,name='storetext'),
     path('display1',views.display1,name='display1'),
     path('storeImage',views.storeImage,name='storeImage'),
+    path('domainimage',views.domainimage,name='domainimage'),
+    path('boolchange',views.boolchange,name='boolchange'),
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

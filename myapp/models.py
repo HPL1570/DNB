@@ -9,4 +9,5 @@ class AnnounceText(models.Model):
 class StoreImages(models.Model):
     name=models.CharField(max_length=100)
     image=models.ImageField(upload_to='images/',blank=True) 
+    boolval=models.IntegerField(default=0)
     
