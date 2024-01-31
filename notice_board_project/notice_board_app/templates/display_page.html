@@ -1,0 +1,16 @@
+<!-- notice_board_app/templates/notice_board_app/display_page.html -->
+
+<h1>Display Page</h1>
+<div id="displayArea"></div>
+
+<script>
+  const displayArea = document.getElementById('displayArea');
+  const socket = new WebSocket('ws://' + window.location.host + '/ws/notice_board/');
+
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    const messageDiv = document.createElement('div');
+    messageDiv.innerHTML = `<p>${data.content}</p><small>${data.created_at}</small>`;
+    displayArea.prepend(messageDiv);
+  };
+</script>

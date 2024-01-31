@@ -1,0 +1,23 @@
+<!-- notice_board_app/templates/notice_board_app/message_page.html -->
+
+<h1>Message Page</h1>
+<textarea id="messageInput" placeholder="Type your message..."></textarea>
+<button onclick="sendMessage()">Send Message</button>
+
+<script>
+  const socket = new WebSocket('ws://' + window.location.host + '/ws/notice_board/');
+  const messageInput = document.getElementById('messageInput');
+
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    // Handle the received message, update the display
+  };
+
+  function sendMessage() {
+    const content = messageInput.value;
+    if (content.trim() !== '') {
+      socket.send(JSON.stringify({ content: content }));
+      messageInput.value = '';
+    }
+  }
+</script>

@@ -18,7 +18,7 @@ def display1(request):
 def storetext(request):
     if request.method=='POST':
         txt=request.POST['text']
-        AnnounceText.objects.all().delete();
+        AnnounceText.objects.all().delete()
         
         obj=AnnounceText.objects.create(text=txt)
         obj.save()

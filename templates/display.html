@@ -32,7 +32,7 @@
     {% if val == 1 %}
     <div id="typing-text"></div>
     {% elif val == 2 %}
-        <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="3000">
+        <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="2000">
             <div class="carousel-inner p-5">
                 {% for i in imgs %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -51,20 +51,19 @@
         </div>
 
     {% elif val == 3 %}
-    
-
             {% for video in videos %}
-            
-                <video style="width: 100%; height:100%; object-fit: cover;">
+                <video controls autoplay style="width: 100%; height:100%; object-fit: cover;">
                     <source src="{{ video.video_file.url }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-            
             {% endfor %}
-        
     {% elif val == 4 %}
     <div>timetable</div>
     {% endif %}
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // JavaScript to create typing effect
         const textToType = "{{data}}";
@@ -78,6 +77,9 @@
             if (index < textToType.length) {
                 setTimeout(typeText, speed);
             }
+            else{
+                refreshTimeout = setTimeout(refreshPage, 3000);
+            }
         }
 
         // Start the typing effect when the page loads
@@ -86,31 +88,47 @@
         };
     </script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
+        $(document).ready(function () {
+            $('#carouselExample').on('slid.bs.carousel', function () {
+              var currentIndex = $(this).find('.active').index();
+              var totalItems = $(this).find('.carousel-item').length;
+        
+              // Check if the next slide is the first one (wrap around)
+              if (currentIndex === totalItems - 1) {
+                // Reload the page
+                location.reload(true);
+              }
+            });
+          });
     </script>
+    
+    <script>
+        var video = document.querySelector('video');
+        var refreshTimeout;
+    
+        video.addEventListener('ended', function() {
+            // Video has ended, start the refresh timer
+            refreshTimeout = setTimeout(refreshPage, 3000);
+        });
+    
+        video.addEventListener('play', function() {
+            clearTimeout(refreshTimeout);
+        });
+        setTimeout(function() {
+            if (video.ended) {
+                refreshPage();
+            }
+        }, 3000);
+    </script>
+    
     <script>
         // Function to refresh the page
         function refreshPage() {
             location.reload(true); // true forces a reload from the server, not from the cache
         }
-
-        // Set a timer to call the refreshPage function every 5 minutes (300,000 milliseconds)
-        setTimeout(refreshPage, 30000);
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
 </body>
 
 </html>
