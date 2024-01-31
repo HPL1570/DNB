@@ -1,16 +1,19 @@
 from django.shortcuts import render,redirect
-from .models import AnnounceText,StoreImages
+from .models import AnnounceText,StoreImages,Dummy,Video
 from .forms import StoreImagesForm
 # Create your views here.
 def home(request):
     return render(request,"home.html")
 def display1(request):
     obj1=AnnounceText.objects.all();
+    dmy=Dummy.objects.all()
+    dmy1=dmy[0]
+    dmy2=dmy1.val
     l=len(obj1)
     obj2=obj1[l-1];
     dt=obj2.text
     imgs=StoreImages.objects.filter(boolval=1)
-    return render(request,'display.html',{'data':dt,'imgs':imgs})
+    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2})
 def storetext(request):
     if request.method=='POST':
         txt=request.POST['text']
@@ -49,3 +52,18 @@ def boolchange(request):
 
         return redirect(home)
     return render(request,"home.html")
+def dummy(request):
+    if request.method=='POST':
+        val=request.POST['name']
+        Dummy.objects.all().delete()
+        obj=Dummy.objects.create(val=val)
+        obj.save();
+        return redirect(home)
+    return render(request,"dummy.html")
+def storevideo(request):
+    if request.method=='POST':
+        vlink=request.FILES['vlink']
+        obj=Video.objects.create(title="video",video_file=vlink)
+        obj.save();
+        return redirect(home)
+    return render(request,"storevideo.html")

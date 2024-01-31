@@ -10,4 +10,8 @@ class StoreImages(models.Model):
     name=models.CharField(max_length=100)
     image=models.ImageField(upload_to='images/',blank=True) 
     boolval=models.IntegerField(default=0)
-    
+class Dummy(models.Model):
+    val=models.IntegerField(default=1)
+class Video(models.Model):
+    title = models.CharField(max_length=255)
+    video_file = models.FileField(upload_to='videos/')    

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Updated styling with background color and increased text size */
         * {
@@ -28,17 +29,32 @@
 <body>
 
     <!-- Create a container for the typing effect -->
+    {% if val == 1 %}
     <div id="typing-text"></div>
-    {% for i in imgs %}
-    <li>
-        
-        <strong>Image:</strong> <img src="{{i.image.url}}"  width="200" height="200"><br>
-      
-        
-        <!-- Add other fields as needed -->
-    </li>
-    {% endfor %}
+    {% elif val == 2 %}
+        <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="3000">
+            <div class="carousel-inner p-5">
+                {% for i in imgs %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ i.image.url }}" class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
 
+    {% elif val == 3 %}
+    <div>video</div>
+    {% elif val == 4 %}
+    <div>timetable</div>
+    {% endif %}
     <script>
         // JavaScript to create typing effect
         const textToType = "{{data}}";
@@ -60,6 +76,20 @@
         };
     </script>
     <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+    <script>
         // Function to refresh the page
         function refreshPage() {
             location.reload(true); // true forces a reload from the server, not from the cache
@@ -68,6 +98,9 @@
         // Set a timer to call the refreshPage function every 5 minutes (300,000 milliseconds)
         setTimeout(refreshPage, 30000);
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
