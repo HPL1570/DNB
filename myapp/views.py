@@ -17,7 +17,7 @@ def display1(request):
     pdf = StorePDFs.objects.filter(boolval=1)
     print(len(pdf))
     flag = True
-    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
+    return render(request,'dis123.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
 def storetext(request):
     if request.method=='POST':
         txt=request.POST['text']

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% for pdf in pdfs %}
+<div id="pdf-viewer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+<script>
+    // URL to your PDF file
+    var pdfUrl = '{{ pdf.pdf_file.url }}';
+
+    // PDF.js worker from the built/ folder
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
+
+    // Asynchronously download PDF as an ArrayBuffer
+    var loadingTask = pdfjsLib.getDocument(pdfUrl);
+    loadingTask.promise.then(function (pdf) {
+        // Get the number of pages in the PDF
+        var numPages = pdf.numPages;
+
+        // Iterate through all pages
+        for (var pageNum = 1; pageNum <= numPages; pageNum++) {
+            // Fetch the page
+            pdf.getPage(pageNum).then(function (page) {
+                var scale = 1.5;
+                var viewport = page.getViewport({ scale: scale });
+
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).promise.then(function () {
+                    // Display canvas in div
+                    document.getElementById('pdf-viewer').appendChild(canvas);
+
+                    // If this is the last page, scroll to the bottom
+                    if (pageNum === numPages) {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }
+                });
+            });
+        }
+    }, function (reason) {
+        // PDF loading error
+        console.error(reason);
+    });
+</script>
+
+{% endfor %}
+<script>
+    function scrollPageDownSlowly() {
+        // Get the total height of the webpage
+        var totalHeight = Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+        );
+
+        // Get the current scroll position
+        var currentPosition = window.scrollY || document.documentElement.scrollTop;
+
+        // Set the target scroll position to the bottom of the page
+        var targetPosition = totalHeight;
+
+        // Calculate the distance to scroll in small steps
+        var distance = targetPosition - currentPosition;
+
+        // Set the duration of the scroll animation (in milliseconds)
+        var duration = 1000; // 1 second
+
+        // Calculate the number of frames based on the duration
+        var frames = 200; // 60 frames per second
+
+        // Calculate the interval between each frame
+        var interval = duration / frames;
+
+        // Calculate the distance to scroll in each frame
+        var step = distance / frames;
+
+        // Function to perform the scrolling animation
+        function scrollStep() {
+            currentPosition += step;
+
+            // Scroll to the new position
+            window.scrollTo(0, currentPosition);
+
+            // Check if the animation is complete
+            if (currentPosition < targetPosition) {
+                // Continue scrolling on the next frame
+                requestAnimationFrame(scrollStep);
+            } else {
+                // Animation is complete, refresh the page
+                location.reload();
+            }
+        }
+
+        // Start the scrolling animation
+        scrollStep();
+    }
+
+    // Call the function when the page is loaded
+    window.onload = function () {
+        // You can trigger the scroll when a button is clicked or any other event
+        // For example, let's trigger it after 3 seconds for demonstration purposes
+        setTimeout(scrollPageDownSlowly, 3000);
+    };
+</script>
+</body>
+</html>
