@@ -1,0 +1,7 @@
+<h2>PDF Viewer</h2>
+<!-- {% for pdf in pdfs %} -->
+<!-- <object data="{{ pdf.file.url }}" type="application/pdf" width="100%" height="600px">
+            <p>Unable to display PDF. Please <a href="{{ pdf.file.url }}">download it here</a>.</p>
+        </object> -->
+        <iframe src="{{ pdfs.0.file.url }}"  allowfullscreen></iframe>
+<!-- {% endfor %} -->

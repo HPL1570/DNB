@@ -11,32 +11,24 @@
 
 <body>
 
-
     <div class="container ">
 
-
-
-        <details class="shadow ">
-            <summary class="h2 mt-4 mx-3">Videos</summary>
-            <div class="row">
-                {% for video in videos %}
-                <div class="col-sm-12 col-md-6 col-lg-6 mb-4 ">
-                    <div class="card m-3">
-                        <video width="320" height="180" controls>
-                            <source src="{{ video.video_file.url }}" type="video/mp4">
-                        </video>
-                        <div class="card-body">
-                            <input class="" type="checkbox" name="selected_objects" value="{{ video.id }}"
-                                onclick="updateSelectedValues(this)">
-                            <!-- Add other fields as needed -->
-                        </div>
+        <div class="h2 mt-4 mx-3">Videos</div>
+        <div class="row">
+            {% for video in videos %}
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-4 ">
+                <div class="card m-3">
+                    <video width="320" height="180" controls>
+                        <source src="{{ video.video_file.url }}" type="video/mp4">
+                    </video>
+                    <div class="card-body">
+                        <input class="" type="checkbox" name="selected_objects" value="{{ video.id }}"
+                            onclick="updateSelectedValues(this)">
                     </div>
                 </div>
-                {% endfor %}
             </div>
-        </details>
-
-
+            {% endfor %}
+        </div>
     </div>
 
     <form method="POST" action="selectvideo" class="mt-3">
@@ -48,20 +40,36 @@
             <button type="submit" class="btn btn-primary mt-5 button">Submit</button>
         </div>
     </form>
-    <!-- Repeat the structure for other sections (Internships, Sports, Achievements) -->
 
     <script>
-        var selectedValuesString = '';  // Initialize an empty string
+        var selectedCheckbox = null;
 
         function updateSelectedValues(checkbox) {
             var checkboxValue = checkbox.value;
 
             if (checkbox.checked) {
-                // Checkbox is checked, add the value to the string
-                selectedValuesString += checkboxValue + ',';
+                // If a checkbox is checked, uncheck the previously selected checkbox
+                if (selectedCheckbox !== null && selectedCheckbox !== checkbox) {
+                    selectedCheckbox.checked = false;
+                }
+                selectedCheckbox = checkbox;
             } else {
-                // Checkbox is unchecked, remove the value from the string
-                selectedValuesString = selectedValuesString.replace(checkboxValue + ',', '');
+                // If a checkbox is unchecked, clear the selectedCheckbox variable
+                selectedCheckbox = null;
+            }
+
+            // Log or use the updated string as needed
+            updateSelectedValuesString();
+        }
+
+        function updateSelectedValuesString() {
+            var selectedValuesString = '';
+            var checkboxes = document.getElementsByName("selected_objects");
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedValuesString += checkboxes[i].value + ',';
+                }
             }
 
             // Log or use the updated string as needed
@@ -70,7 +78,6 @@
             console.log('Selected Values: ' + selectedValuesString);
         }
     </script>
-    </div>
 
     <!-- Bootstrap JS and jQuery (for Bootstrap features) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

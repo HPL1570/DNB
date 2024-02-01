@@ -15,6 +15,7 @@ def display1(request):
     imgs=StoreImages.objects.filter(boolval=1)
     vd=Video.objects.filter(boolval=1)
     pdf = StorePDFs.objects.filter(boolval=1)
+    print(len(pdf))
     flag = True
     return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
 def storetext(request):
