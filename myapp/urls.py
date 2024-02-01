@@ -14,7 +14,8 @@ urlpatterns=[
     path('dummy',views.dummy,name='dummy'),
     path('storevideo',views.storevideo,name='storevideo'),
     path('selectvideo',views.selectvideo,name='selectvideo'),
-
+    path('storepdfs', views.storepdfs,name='storepdfs'),
+    path('selectpdfs', views.selectpdfs, name='selectpdfs'),
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

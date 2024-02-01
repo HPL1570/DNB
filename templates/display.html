@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Updated styling with background color and increased text size */
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #0d135cf4; /* Change background color */
-            text-align: justify;
-            color: white;
-            
-          }
-      
-          #typing-text {
-            font-family: monospace;
-            white-space: pre-wrap; /* Allow text to wrap to the next line */
-            overflow: hidden;
-            border-right: 1px solid #000;
-            font-size: 35px; /* Increase text size */
-            padding: 10px; /* Add padding for better visibility */
-          }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            /* Updated styling with background color and increased text size */
+            body {
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #0d135cf4;
+                /* Change background color */
+                text-align: justify;
+                color: white;
 
-<body>
+            }
 
-    <!-- Create a container for the typing effect -->
-    {% if val == 1 %}
-    <div id="typing-text"></div>
-    {% elif val == 2 %}
+            #typing-text {
+                font-family: monospace;
+                white-space: pre-wrap;
+                /* Allow text to wrap to the next line */
+                overflow: hidden;
+                border-right: 1px solid #000;
+                font-size: 35px;
+                /* Increase text size */
+                padding: 10px;
+                /* Add padding for better visibility */
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Create a container for the typing effect -->
+        {% if val == 1 %}
+        <div id="typing-text"></div>
+        {% elif val == 2 %}
         <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="3000">
             <div class="carousel-inner p-5">
                 {% for i in imgs %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ i.image.url }}" style="width: 100vh; height: 100vh; object-fit: cover;" class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                    <img src="{{ i.image.url }}" style="width: 100vh; height: 100vh; object-fit: cover;"
+                        class="d-block w-100" alt="Slide {{ forloop.counter }}">
                 </div>
                 {% endfor %}
             </div>
@@ -54,85 +59,137 @@
             </a>
         </div>
 
-    {% elif val == 3 %}
-            {% for video in videos %}
-                <video controls autoplay style="width: 100%; height:100%; object-fit: cover;">
-                    <source src="{{ video.video_file.url }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            {% endfor %}
-    {% elif val == 4 %}
-    <div>timetable</div>
-    {% endif %}
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // JavaScript to create typing effect
-        const textToType = "{{data}}";
-        let index = 0;
-        const speed = 50; // Adjust the speed in milliseconds
-
-        function typeText() {
-            document.getElementById('typing-text').textContent += textToType.charAt(index);
-            index++;
-
-            if (index < textToType.length) {
-                setTimeout(typeText, speed);
-            }
-            else{
-                refreshTimeout = setTimeout(refreshPage, 3000);
-            }
-        }
-
-        // Start the typing effect when the page loads
-        window.onload = function () {
-            typeText();
-        };
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#carouselExample').on('slid.bs.carousel', function () {
-              var currentIndex = $(this).find('.active').index();
-              var totalItems = $(this).find('.carousel-item').length;
+        {% elif val == 3 %}
+        {% for video in videos %}
+        <video autoplay muted style="width: 100%; height:100%; object-fit: cover;">
+            <source src="{{ video.video_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {% endfor %}
+        {% elif val == 4 %}
+        <div>timetable</div>
+        {% for pdf in pdfs %}
+        <div id="pdf-viewer"></div>
         
-              // Check if the next slide is the first one (wrap around)
-              if (currentIndex === totalItems - 1) {
-                // Reload the page
-                refreshTimeout = setTimeout(refreshPage, 3000);
-              }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+        <script>
+            // URL to your PDF file
+            var pdfUrl = '{{ pdf.pdf_file.url }}';
+
+            // PDF.js worker from the built/ folder
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
+
+            // Asynchronously download PDF as an ArrayBuffer
+            var loadingTask = pdfjsLib.getDocument(pdfUrl);
+            loadingTask.promise.then(function (pdf) {
+                // Fetch the first page
+                pdf.getPage(1).then(function (page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale });
+
+                    // Prepare canvas using PDF page dimensions
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render PDF page into canvas context
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(function () {
+                        // Display canvas in div
+                        document.getElementById('pdf-viewer').appendChild(canvas);
+                    });
+                });
+            }, function (reason) {
+                // PDF loading error
+                console.error(reason);
             });
-          });
-    </script>
-    
-    <script>
-        var video = document.querySelector('video');
-        var refreshTimeout;
-    
-        video.addEventListener('ended', function() {
-            // Video has ended, start the refresh timer
-            refreshTimeout = setTimeout(refreshPage, 3000);
-        });
-    
-        video.addEventListener('play', function() {
-            clearTimeout(refreshTimeout);
-        });
-        setTimeout(function() {
-            if (video.ended) {
-                refreshPage();
+        </script>
+        {% endfor %}
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            // JavaScript to create typing effect
+            const textToType = "{{data}}";
+            let index = 0;
+            const speed = 50; // Adjust the speed in milliseconds
+
+            function typeText() {
+                document.getElementById('typing-text').textContent += textToType.charAt(index);
+                index++;
+
+                if (index < textToType.length) {
+                    setTimeout(typeText, speed);
+                }
+                else {
+                    refreshTimeout = setTimeout(refreshPage, 3000);
+                }
             }
-        }, 3000);
-    </script>
-    
-    <script>
-        // Function to refresh the page
-        function refreshPage() {
-            location.reload(true); // true forces a reload from the server, not from the cache
-        }
-    </script>
-    
-    
-</body>
+
+            // Start the typing effect when the page loads
+            window.onload = function () {
+                typeText();
+            };
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#carouselExample').on('slid.bs.carousel', function () {
+                    var currentIndex = $(this).find('.active').index();
+                    var totalItems = $(this).find('.carousel-item').length;
+
+                    // Check if the next slide is the first one (wrap around)
+                    if (currentIndex === totalItems - 1) {
+                        // Reload the page
+                        refreshTimeout = setTimeout(refreshPage, 3000);
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            var video = document.querySelector('video');
+            var refreshTimeout;
+
+            video.addEventListener('ended', function () {
+                console.log("$$$$$$$$");
+                // Video has ended, start the refresh timer
+                refreshTimeout = setTimeout(refreshPage, 3000);
+            });
+
+            video.addEventListener('play', function () {
+                clearTimeout(refreshTimeout);
+            });
+            setTimeout(function () {
+                if (video.ended) {
+                    refreshPage();
+                }
+            }, 3000);
+        </script>
+
+        <script>
+            // Function to refresh the page
+            function refreshPage() {
+                location.reload(true); // true forces a reload from the server, not from the cache
+            }
+        </script>
+
+
+    </body>
 
 </html>

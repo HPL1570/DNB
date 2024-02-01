@@ -16,3 +16,7 @@ class Video(models.Model):
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to='videos/')    
     boolval=models.IntegerField(default=0)
+
+class StorePDFs(models.Model):
+    pdf_file = models.FileField(upload_to='pdfs/', blank=True)
+    boolval= models.IntegerField(default=0)

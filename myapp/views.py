@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import AnnounceText,StoreImages,Dummy,Video
+from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video
 from .forms import StoreImagesForm
 # Create your views here.
 def home(request):
@@ -14,7 +14,9 @@ def display1(request):
     dt=obj2.text
     imgs=StoreImages.objects.filter(boolval=1)
     vd=Video.objects.filter(boolval=1)
-    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd})
+    pdf = StorePDFs.objects.filter(boolval=1)
+    flag = True
+    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
 def storetext(request):
     if request.method=='POST':
         txt=request.POST['text']
@@ -32,7 +34,7 @@ def storeImage(request):
         name=request.POST['name']
         img=request.FILES['image']
         obj=StoreImages.objects.create(name=name,image=img)
-        
+
         obj.save();
         return redirect(home)
     return render(request,"storeImage.html")
@@ -61,9 +63,29 @@ def selectvideo(request):
         Video.objects.all().update(boolval=0);
         Video.objects.filter(id__in=valid_ids).update(boolval=1);
         return redirect(home)
-        
+    
     vd=Video.objects.all()
     return render(request,"selectvideo.html",{'videos':vd})
+
+def selectpdfs(request):
+    if request.method=="POST":
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        StorePDFs.objects.all().update(boolval=0);
+        StorePDFs.objects.filter(id__in=valid_ids).update(boolval=1);
+        return redirect(home)
+    pdfs = StorePDFs.objects.all()
+    return render(request, 'selectpdfs.html',{'pdfs':pdfs})
+def storepdfs(request):
+    if request.method=='POST':
+        pdf=request.FILES['pdf']
+        obj=StorePDFs.objects.create(pdf_file=pdf)
+        obj.save();
+        return redirect(home)
+    return render(request,"storepdfs.html")
+
+
 def dummy(request):
     if request.method=='POST':
         val=request.POST['name']
@@ -77,7 +99,8 @@ def dummy(request):
             return redirect(domainimage)
         if(val=="3"):
             return redirect(selectvideo)
-        
+        if(val=='4'):
+            return redirect(selectpdfs)
         return redirect(home)
     return render(request,"dummy.html")
 def storevideo(request):
