@@ -5,6 +5,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Inter:wght@300;400&family=Lora:ital,wght@1,600&family=Open+Sans:wght@300&family=Oswald&family=Poppins:wght@300&family=Quicksand:wght@300&family=Ysabeau:ital,wght@1,100&display=swap"
+            rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Vast+Shadow&display=swap"
+            rel="stylesheet">
         <style>
             /* Updated styling with background color and increased text size */
             body {
@@ -13,20 +24,24 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #0d135cf4;
+                /*background-color: #0d135cf4;*/
+                background-color: #ffffff;
                 /* Change background color */
                 text-align: justify;
-                color: white;
+                /* color: white; */
+                color:#c4124d;
+                
 
             }
 
             #typing-text {
-                font-family: monospace;
+                /* font-family: monospace; */
+                font-family: 'Lora', serif;
                 white-space: pre-wrap;
                 /* Allow text to wrap to the next line */
                 overflow: hidden;
                 border-right: 1px solid #000;
-                font-size: 35px;
+                font-size: 50px;
                 /* Increase text size */
                 padding: 10px;
                 /* Add padding for better visibility */
@@ -46,6 +61,9 @@
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                     <img src="{{ i.image.url }}" style="width: 100vh; height: 100vh; object-fit: cover;"
                         class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                        <div class="carousel-caption">
+                            <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">{{ i.text }}</h3>
+                        </div>
                 </div>
                 {% endfor %}
             </div>

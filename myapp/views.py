@@ -17,7 +17,7 @@ def display1(request):
     pdf = StorePDFs.objects.filter(boolval=1)
     print(len(pdf))
     flag = True
-    return render(request,'dis123.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
+    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
 def storetext(request):
     if request.method=='POST':
         txt=request.POST['text']
@@ -34,7 +34,8 @@ def storeImage(request):
         
         name=request.POST['name']
         img=request.FILES['image']
-        obj=StoreImages.objects.create(name=name,image=img)
+        txt=request.POST['txt']
+        obj=StoreImages.objects.create(name=name,image=img,text=txt)
 
         obj.save();
         return redirect(home)
@@ -77,11 +78,17 @@ def selectpdfs(request):
         StorePDFs.objects.filter(id__in=valid_ids).update(boolval=1);
         return redirect(home)
     pdfs = StorePDFs.objects.all()
-    return render(request, 'selectpdfs.html',{'pdfs':pdfs})
+    pdf1=StorePDFs.objects.filter(name="TimeTable")
+    pdf2=StorePDFs.objects.filter(name="MidExaminations")
+    pdf3=StorePDFs.objects.filter(name="Semester")
+    pdf4=StorePDFs.objects.filter(name="Supplementary")
+    #return render(request, 'selectpdfs.html',{'pdfs':pdfs})
+    return render(request, 'selectpdfs.html',{'pdf1':pdf1,'pdf2':pdf2,'pdf3':pdf3,'pdf4':pdf4})
 def storepdfs(request):
     if request.method=='POST':
         pdf=request.FILES['pdf']
-        obj=StorePDFs.objects.create(pdf_file=pdf)
+        name=request.POST['name']
+        obj=StorePDFs.objects.create(name=name,pdf_file=pdf)
         obj.save();
         return redirect(home)
     return render(request,"storepdfs.html")

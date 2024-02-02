@@ -9,6 +9,7 @@ class AnnounceText(models.Model):
 class StoreImages(models.Model):
     name=models.CharField(max_length=100)
     image=models.ImageField(upload_to='images/',blank=True) 
+    text=models.CharField(max_length=500,default="SVEC CSE Department")
     boolval=models.IntegerField(default=0)
 class Dummy(models.Model):
     val=models.IntegerField(default=1)
@@ -19,4 +20,5 @@ class Video(models.Model):
 
 class StorePDFs(models.Model):
     pdf_file = models.FileField(upload_to='pdfs/', blank=True)
+    name=models.CharField(max_length=100,default="TimeTable")
     boolval= models.IntegerField(default=0)

@@ -11,12 +11,18 @@
 
     <body>
 
-
+<!--
+                    pdf1=StorePDFs.objects.filter(name="TimeTable")
+    pdf2=StorePDFs.objects.filter(name="MidExaminations")
+    pdf3=StorePDFs.objects.filter(name="Semester")
+    pdf4=StorePDFs.objects.filter(name="Supplementary")
+                -->
         <div class="container ">
             <details class="shadow">
-                <summary class="h2 mt-4 mx-3">PDFs</summary>
+                
+                <summary class="h2 mt-4 mx-3">TimeTable</summary>
                 <div class="row">
-                    {% for pdf in pdfs %}
+                    {% for pdf in pdf1 %}
                     <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
                         <div class="card m-3">
                             <embed src="{{ pdf.pdf_file.url }}" type="application/pdf" width="100%" height="500px" />
@@ -31,6 +37,77 @@
                 </div>
             </details>
 
+            </details>
+        </div>
+        <div class="container ">
+            <details class="shadow">
+        
+                <summary class="h2 mt-4 mx-3">MidExaminations</summary>
+                <div class="row">
+                    {% for pdf in pdf2 %}
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                        <div class="card m-3">
+                            <embed src="{{ pdf.pdf_file.url }}" type="application/pdf" width="100%" height="500px" />
+                            <div class="card-body">
+                                <input class="" type="checkbox" name="selected_objects" value="{{ pdf.id }}"
+                                    onclick="updateSelectedValues(this)">
+                                <!-- Add other fields as needed -->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </details>
+        
+            </details>
+        </div>
+
+
+        <div class="container ">
+            <details class="shadow">
+        
+                <summary class="h2 mt-4 mx-3">Semester</summary>
+                <div class="row">
+                    {% for pdf in pdf3 %}
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                        <div class="card m-3">
+                            <embed src="{{ pdf.pdf_file.url }}" type="application/pdf" width="100%" height="500px" />
+                            <div class="card-body">
+                                <input class="" type="checkbox" name="selected_objects" value="{{ pdf.id }}"
+                                    onclick="updateSelectedValues(this)">
+                                <!-- Add other fields as needed -->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </details>
+        
+            </details>
+        </div>
+
+
+
+        <div class="container ">
+            <details class="shadow">
+        
+                <summary class="h2 mt-4 mx-3">Supplementary</summary>
+                <div class="row">
+                    {% for pdf in pdf4 %}
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                        <div class="card m-3">
+                            <embed src="{{ pdf.pdf_file.url }}" type="application/pdf" width="100%" height="500px" />
+                            <div class="card-body">
+                                <input class="" type="checkbox" name="selected_objects" value="{{ pdf.id }}"
+                                    onclick="updateSelectedValues(this)">
+                                <!-- Add other fields as needed -->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </details>
+        
             </details>
         </div>
 
