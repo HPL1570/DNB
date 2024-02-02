@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video
+from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video,TimeTable
 from .forms import StoreImagesForm
 # Create your views here.
 def home(request):
@@ -118,3 +118,30 @@ def storevideo(request):
         obj.save();
         return redirect(home)
     return render(request,"storevideo.html")
+def storeTimeTable(request):
+    if request.method=='POST':
+        n = int(request.POST['no_sec'])
+        year = request.POST['year']
+        lst=["9:30-10:30","10:30-11:20","11:20-12:10","12:10-1:00","2:00-2:50","2:50-3:40","3:40-4:30"]
+        for i in range(n):
+            sec=request.POST['sec'+str(i)]
+            for j in range(7):
+                mp1=request.POST['p'+str(i)+"0"+str(j)]
+                mp2=request.POST['p'+str(i)+"1"+str(j)]
+                mp3=request.POST['p'+str(i)+"2"+str(j)]
+                mp4=request.POST['p'+str(i)+"3"+str(j)]
+                mp5=request.POST['p'+str(i)+"4"+str(j)]
+                mp6=request.POST['p'+str(i)+"5"+str(j)]
+                #print(mp1,"  ",mp2,"  ",mp3,"  ",mp4,"  ",mp5,"  ",mp6,"  ")
+                mt1=request.POST['t'+str(i)+"0"+str(j)]
+                mt2=request.POST['t'+str(i)+"1"+str(j)]
+                mt3=request.POST['t'+str(i)+"2"+str(j)]
+                mt4=request.POST['t'+str(i)+"3"+str(j)]
+                mt5=request.POST['t'+str(i)+"4"+str(j)]
+                mt6=request.POST['t'+str(i)+"5"+str(j)]
+                obj=TimeTable.objects.create(year_section=year+"_"+sec,mon=mp1+"_"+mt1,tue=mp2+"_"+mt2,wed=mp3+"_"+mt3,thu=mp4+"_"+mt4,fri=mp5+"_"+mt5,sat=mp6+"_"+mt6,tm=lst[j])
+        obj.save();
+        return redirect(home)
+    return render(request,"timetabledisp.html")
+                    
+

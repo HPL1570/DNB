@@ -85,59 +85,62 @@
         </video>
         {% endfor %}
         {% elif val == 4 %}
+        
+
         {% for pdf in pdfs %}
         <div id="pdf-viewer"></div>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
-        <script>
-            // URL to your PDF file
-            var pdfUrl = '{{ pdf.pdf_file.url }}';
-
-            // PDF.js worker from the built/ folder
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
-
-            // Asynchronously download PDF as an ArrayBuffer
-            var loadingTask = pdfjsLib.getDocument(pdfUrl);
-            loadingTask.promise.then(function (pdf) {
-                // Get the number of pages in the PDF
-                var numPages = pdf.numPages;
-
-                // Iterate through all pages
-                for (var pageNum = 1; pageNum <= numPages; pageNum++) {
-                    // Fetch the page
-                    pdf.getPage(pageNum).then(function (page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport({ scale: scale });
-
-                        // Prepare canvas using PDF page dimensions
-                        var canvas = document.createElement('canvas');
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-
-                        // Render PDF page into canvas context
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext).promise.then(function () {
-                            // Display canvas in div
-                            document.getElementById('pdf-viewer').appendChild(canvas);
-
-                            // If this is the last page, scroll to the bottom
-                            if (pageNum === numPages) {
-                                window.scrollTo(0, document.body.scrollHeight);
-                            }
-                        });
-                    });
-                }
-            }, function (reason) {
-                // PDF loading error
-                console.error(reason);
-            });
-        </script>
+        
         
         {% endfor %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+<script>
+    // URL to your PDF file
+    var pdfUrl = '{{ pdf.pdf_file.url }}';
+
+    // PDF.js worker from the built/ folder
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
+
+    // Asynchronously download PDF as an ArrayBuffer
+    var loadingTask = pdfjsLib.getDocument(pdfUrl);
+    loadingTask.promise.then(function (pdf) {
+        // Get the number of pages in the PDF
+        var numPages = pdf.numPages;
+
+        // Iterate through all pages
+        for (var pageNum = 1; pageNum <= numPages; pageNum++) {
+            // Fetch the page
+            pdf.getPage(pageNum).then(function (page) {
+                var scale = 1.5;
+                var viewport = page.getViewport({ scale: scale });
+
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).promise.then(function () {
+                    // Display canvas in div
+                    document.getElementById('pdf-viewer').appendChild(canvas);
+
+                    // If this is the last page, scroll to the bottom
+                    if (pageNum === numPages) {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }
+                });
+            });
+        }
+    }, function (reason) {
+        // PDF loading error
+        console.error(reason);
+    });
+</script>
         <script>
             function scrollPageDownSlowly() {
                 // Get the total height of the webpage
@@ -198,53 +201,6 @@
                 setTimeout(scrollPageDownSlowly, 3000);
             };
         </script>
-        <!-- {% for pdf in pdfs %}
-        <div id="pdf-viewer"></div>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
-        <script>
-            // URL to your PDF file
-            var pdfUrl = '{{ pdf.pdf_file.url }}';
-
-            // PDF.js worker from the built/ folder
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
-
-            // Asynchronously download PDF as an ArrayBuffer
-            var loadingTask = pdfjsLib.getDocument(pdfUrl);
-            loadingTask.promise.then(function (pdf) {
-                // Get the number of pages in the PDF
-                var numPages = pdf.numPages;
-
-                // Iterate through all pages
-                for (var pageNum = 1; pageNum <= numPages; pageNum++) {
-                    // Fetch the page
-                    pdf.getPage(pageNum).then(function (page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport({ scale: scale });
-
-                        // Prepare canvas using PDF page dimensions
-                        var canvas = document.createElement('canvas');
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-
-                        // Render PDF page into canvas context
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext).promise.then(function () {
-                            // Display canvas in div
-                            document.getElementById('pdf-viewer').appendChild(canvas);
-                        });
-                    });
-                }
-            }, function (reason) {
-                // PDF loading error
-                console.error(reason);
-            });
-        </script>
-        {% endfor %} -->
 
         {% endif %}
 

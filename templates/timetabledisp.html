@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable Form</title>
+</head>
+
+<body>
+    
+    <form method="post" action="storeTimeTable">
+        {% csrf_token %}
+        <input type="text" name="no_sec" id="no_sec">
+        <input type="text" name="year" />
+        <div id="disp_tab">
+        
+        </div>
+        <div onclick="add()" id="btndiv">click</div>
+        <input type="submit" name="submit">
+    </form>
+    <script>
+        function add(){
+            var div=document.getElementById("disp_tab");
+            var minp= document.getElementById("no_sec");
+            var btndiv = document.getElementById("btndiv");
+            minp.style.display="none";
+            btndiv.style.display = "none";
+            var n=parseInt(minp.value);
+            for(let i=0;i<n;i++){
+                var tab=document.createElement("table");
+                var th=document.createElement("tr");
+                var lst=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                var td = document.createElement("td");
+                var inp=document.createElement("input");
+                inp.setAttribute('name','sec'+i);
+                td.append(inp);
+                th.append(td);
+                for(let j=1;j<8;j++){
+                    var td=document.createElement("td");
+                    td.textContent=j;
+                    th.append(td);
+                }
+                tab.append(th);
+                for(let k=0;k<6;k++){
+                    var tr = document.createElement("tr");
+                    var td1= document.createElement("td");
+                    td1.textContent=lst[k];
+                    tr.append(td1);
+                for (let j = 0; j < 7; j++) {
+                    var td = document.createElement("td");
+                    var inp1=document.createElement("input");
+                    inp1.setAttribute('name',"p"+i+k+j);
+                    var inp2 = document.createElement("input");
+                    inp2.setAttribute('name', "t" + i + k + j);
+                    tr.append(td);
+                    td.append(inp1);
+                    td.append(inp2);
+                }
+                tab.append(tr);
+            }
+            div.append(tab);
+            console.log("hello"+i);
+
+            }
+        }
+    </script>
+    
+   
+</body>
+
+</html>

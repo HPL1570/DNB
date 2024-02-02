@@ -16,6 +16,8 @@ urlpatterns=[
     path('selectvideo',views.selectvideo,name='selectvideo'),
     path('storepdfs', views.storepdfs,name='storepdfs'),
     path('selectpdfs', views.selectpdfs, name='selectpdfs'),
+    path('storeTimeTable', views.storeTimeTable, name='storeTimeTable'),
+
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
