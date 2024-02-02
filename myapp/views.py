@@ -51,7 +51,8 @@ def storetext(request):
             obj=AnnounceText.objects.create(text=txt)
             obj.save()
             #return render(request,'display.html',{'data':dt})
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"textform.html")
     else:
         return redirect(login)
@@ -65,7 +66,8 @@ def storeImage(request):
             txt=request.POST['txt']
             obj=StoreImages.objects.create(name=name,image=img,text=txt)
             obj.save();
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"storeImage.html")
     else:
         return redirect(login)
@@ -90,7 +92,8 @@ def boolchange(request):
             #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
             StoreImages.objects.all().update(boolval=0);
             StoreImages.objects.filter(id__in=valid_ids).update(boolval=1);
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"home.html")
     else:
         return redirect(login)
@@ -104,8 +107,8 @@ def selectvideo(request):
             valid_ids = [id for id in lst if id.isdigit()]
             Video.objects.all().update(boolval=0);
             Video.objects.filter(id__in=valid_ids).update(boolval=1);
-            return redirect(home)
-    
+            # return redirect(home)
+            return render(request, 'home.html')
         vd=Video.objects.all()
         return render(request,"selectvideo.html",{'videos':vd})
     else:
@@ -120,7 +123,8 @@ def selectpdfs(request):
             valid_ids = [id for id in lst if id.isdigit()]
             StorePDFs.objects.all().update(boolval=0);
             StorePDFs.objects.filter(id__in=valid_ids).update(boolval=1);
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         pdfs = StorePDFs.objects.all()
         pdf1=StorePDFs.objects.filter(name="TimeTable")
         pdf2=StorePDFs.objects.filter(name="MidExaminations")
@@ -140,7 +144,8 @@ def storepdfs(request):
             name=request.POST['name']
             obj=StorePDFs.objects.create(name=name,pdf_file=pdf)
             obj.save();
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"storepdfs.html")
     else:
         return redirect(login)
@@ -162,7 +167,8 @@ def dummy(request):
                 return redirect(selectvideo)
             if(val=='4'):
                 return redirect(selectpdfs)
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"dummy.html")
     else:
         return redirect(login)
@@ -175,7 +181,8 @@ def storevideo(request):
             vlink=request.FILES['vlink']
             obj=Video.objects.create(title="video",video_file=vlink)
             obj.save();
-            return redirect(home)
+            # return redirect(home)
+            return render(request, 'home.html')
         return render(request,"storevideo.html")
     else:
         return redirect(login)

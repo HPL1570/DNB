@@ -94,9 +94,6 @@
         {% for pdf in pdfs %}
         <div id="pdf-viewer"></div>
 
-
-
-        {% endfor %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
         <script>
             // URL to your PDF file
@@ -205,6 +202,9 @@
                 setTimeout(scrollPageDownSlowly, 3000);
             };
         </script>
+
+        {% endfor %}
+
 
         {% endif %}
 
