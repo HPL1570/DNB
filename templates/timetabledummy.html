@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Current Time</title>
+    <style>
+        #hidediv{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="currentTime"></p>
+    <ul id="scheduledTimes"></ul>
+<div id="hidediv">
+    <form id="myForm" action="displayTimeTable" method="post">
+        <!-- Your form fields go here -->
+        {% csrf_token %}
+        <label for="username">time:</label>
+        <input type="text" id="tm" name="tm" required>
+        <input type="text" id="day" name="day" required>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+    <table border="1">
+        <tr>
+            <td>Subject:</td>
+            <td>Teacher:</td>
+        </tr>
+        {% for i in lst1 %}
+        <tr>
+        <td>{{i.0}}</td>
+        <td>{{i.1}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        <tr>
+            <td>Subject:</td>
+            <td>Teacher:</td>
+        </tr>
+        {% for i in lst2 %}
+        <tr>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        <tr>
+            <td>Subject:</td>
+            <td>Teacher:</td>
+        </tr>
+        {% for i in lst3 %}
+        <tr>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <script>
+        // Given list of time intervals
+        var timeIntervals = ["9:30-10:30", "10:30-11:20", "11:20-12:10", "12:10-13:00", "14:00-14:50", "14:50-15:40", "15:40-16:30"];
+
+        // Function to check if the current time is within the given list
+        function getCurrentScheduledTime() {
+            // Get the current time
+            var currentTime = new Date();
+
+            // Format the current time
+            var currentHours = currentTime.getHours();
+            var currentMinutes = currentTime.getMinutes();
+            var formattedCurrentTime = currentHours + ":" + currentMinutes;
+
+            // Check if the current time is in the list of scheduled times
+            for (var i = 0; i < timeIntervals.length; i++) {
+                var [startTime, endTime] = timeIntervals[i].split('-');
+                if (startTime <= formattedCurrentTime && formattedCurrentTime <= endTime) {
+                    return timeIntervals[i];
+                }
+            }
+
+            // Return null if the current time is not within any scheduled time
+            return null;
+        }
+
+        // Function to update the time
+        function updateCurrentTime() {
+            // Get the current time
+            var currentTime = new Date();
+
+            // Format the time (adjust the format as needed)
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            var currentDayNumber = currentTime.getDay();
+
+            // Create an array of days
+            var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // Get the current day name
+            var currentDayName = daysOfWeek[currentDayNumber];
+
+            console.log("Current day number:", currentDayNumber);
+            console.log("Current day name:", currentDayName);
+            // Add leading zeros if necessary
+            hours = (hours < 10) ? '0' + hours : hours;
+            minutes = (minutes < 10) ? '0' + minutes : minutes;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+            // Display the formatted time in the HTML element with id="currentTime"
+            document.getElementById("currentTime").innerHTML = hours + ":" + minutes + ":" + seconds;
+
+            // Check if the current time is within the scheduled times
+            var currentScheduledTime = getCurrentScheduledTime();
+
+            // Display the result
+            if (currentScheduledTime !== null) {
+                var tm = document.getElementById("tm");
+                tm.setAttribute('value', currentScheduledTime);
+                tm.setAttribute('placeholder', currentScheduledTime);
+                var dy = document.getElementById("day");
+                dy.setAttribute('value', currentDayNumber);
+                dy.setAttribute('placeholder', currentDayNumber);
+                document.getElementById("scheduledTimes").innerHTML = "<li>Current scheduled time: " + currentScheduledTime + "</li>";
+            } else {
+                document.getElementById("scheduledTimes").innerHTML = "<li>Current time is not within any scheduled time.</li>";
+            }
+        }
+
+        
+
+        //Function to submit the form
+        function submitForm() {
+            updateCurrentTime();
+            document.getElementById('myForm').submit();
+        }
+
+        setInterval(submitForm, 60000);
+        // Set up a timer to submit the form every 2 minutes (120000 milliseconds)
+       
+    </script>
+</body>
+
+</html>

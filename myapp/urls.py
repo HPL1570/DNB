@@ -18,6 +18,10 @@ urlpatterns=[
     path('selectpdfs', views.selectpdfs, name='selectpdfs'),
     path('storeTimeTable', views.storeTimeTable, name='storeTimeTable'),
     path('login', views.login, name='login'),
+    path('displayTimeTable', views.displayTimeTable, name='displayTimeTable'),
+    path('delimg', views.delimg, name='delimg'),
+    path('delpdf', views.delpdf, name='delpdf'),
+    path('delvideo', views.delvideo, name='delvideo'),
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

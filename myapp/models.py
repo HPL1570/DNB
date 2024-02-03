@@ -22,7 +22,25 @@ class StorePDFs(models.Model):
     pdf_file = models.FileField(upload_to='pdfs/', blank=True)
     name=models.CharField(max_length=100,default="TimeTable")
     boolval= models.IntegerField(default=0)
-class TimeTable(models.Model):
+class TimeTable2(models.Model):
+    year_section=models.CharField(max_length=255)
+    mon=models.CharField(max_length=255)
+    tue=models.CharField(max_length=255)
+    wed=models.CharField(max_length=255)
+    thu=models.CharField(max_length=255)
+    fri=models.CharField(max_length=255)
+    sat=models.CharField(max_length=255)
+    tm=models.CharField(max_length=255)
+class TimeTable3(models.Model):
+    year_section=models.CharField(max_length=255)
+    mon=models.CharField(max_length=255)
+    tue=models.CharField(max_length=255)
+    wed=models.CharField(max_length=255)
+    thu=models.CharField(max_length=255)
+    fri=models.CharField(max_length=255)
+    sat=models.CharField(max_length=255)
+    tm=models.CharField(max_length=255)
+class TimeTable4(models.Model):
     year_section=models.CharField(max_length=255)
     mon=models.CharField(max_length=255)
     tue=models.CharField(max_length=255)

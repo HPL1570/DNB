@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video,TimeTable
+from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video,TimeTable2,TimeTable3,TimeTable4
 from .forms import StoreImagesForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
@@ -97,7 +97,57 @@ def boolchange(request):
         return render(request,"home.html")
     else:
         return redirect(login)
-    
+#****************************************************************
+def delimg(request):
+    if request.method=='POST':
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+        #StoreImages.objects.all().update(boolval=0);
+        StoreImages.objects.filter(id__in=valid_ids).delete();
+        # return redirect(home)
+        return render(request, 'home.html')
+    obj1=StoreImages.objects.filter(name="Placements")
+    obj2=StoreImages.objects.filter(name="Internships")
+    obj3=StoreImages.objects.filter(name="sports")
+    obj4=StoreImages.objects.filter(name="Achievements")
+    return render(request,"del_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+def delpdf(request):
+    if request.method=='POST':
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+        #StoreImages.objects.all().update(boolval=0);
+        StorePDFs.objects.filter(id__in=valid_ids).delete();
+        # return redirect(home)
+        return render(request, 'home.html')
+    pdf1=StorePDFs.objects.filter(name="TimeTable")
+    pdf2=StorePDFs.objects.filter(name="MidExaminations")
+    pdf3=StorePDFs.objects.filter(name="Semester")
+    pdf4=StorePDFs.objects.filter(name="Supplementary")
+    #return render(request, 'selectpdfs.html',{'pdfs':pdfs})
+    return render(request, 'del_pdf.html',{'pdf1':pdf1,'pdf2':pdf2,'pdf3':pdf3,'pdf4':pdf4})
+def delvideo(request):
+    if request.method=='POST':
+        cmlst=request.POST['text']
+        lst=cmlst.split(",")
+        valid_ids = [id for id in lst if id.isdigit()]
+        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+        #StoreImages.objects.all().update(boolval=0);
+        Video.objects.filter(id__in=valid_ids).delete();
+        # return redirect(home)
+        return render(request, 'home.html')
+    vd=Video.objects.all()
+    return render(request,"del_video.html",{'videos':vd})
+
+
+
+
+
+
+
 def selectvideo(request):
     global logged_in
     if logged_in:
@@ -190,7 +240,7 @@ def storeTimeTable(request):
     if request.method=='POST':
         n = int(request.POST['no_sec'])
         year = request.POST['year']
-        lst=["9:30-10:30","10:30-11:20","11:20-12:10","12:10-1:00","2:00-2:50","2:50-3:40","3:40-4:30"]
+        lst=["9:30-10:30", "10:30-11:20", "11:20-12:10", "12:10-13:00", "14:00-14:50", "14:50-15:40", "15:40-16:30"]
         for i in range(n):
             sec=request.POST['sec'+str(i)]
             for j in range(7):
@@ -207,9 +257,73 @@ def storeTimeTable(request):
                 mt4=request.POST['t'+str(i)+"3"+str(j)]
                 mt5=request.POST['t'+str(i)+"4"+str(j)]
                 mt6=request.POST['t'+str(i)+"5"+str(j)]
-                obj=TimeTable.objects.create(year_section=year+"_"+sec,mon=mp1+"_"+mt1,tue=mp2+"_"+mt2,wed=mp3+"_"+mt3,thu=mp4+"_"+mt4,fri=mp5+"_"+mt5,sat=mp6+"_"+mt6,tm=lst[j])
+                if(year=='2'):
+                    obj=TimeTable2.objects.create(year_section=year+"_"+sec,mon=mp1+"_"+mt1,tue=mp2+"_"+mt2,wed=mp3+"_"+mt3,thu=mp4+"_"+mt4,fri=mp5+"_"+mt5,sat=mp6+"_"+mt6,tm=lst[j])
+                elif(year=='3'):
+                    obj=TimeTable3.objects.create(year_section=year+"_"+sec,mon=mp1+"_"+mt1,tue=mp2+"_"+mt2,wed=mp3+"_"+mt3,thu=mp4+"_"+mt4,fri=mp5+"_"+mt5,sat=mp6+"_"+mt6,tm=lst[j])     
+                elif(year=='4'):
+                    obj=TimeTable4.objects.create(year_section=year+"_"+sec,mon=mp1+"_"+mt1,tue=mp2+"_"+mt2,wed=mp3+"_"+mt3,thu=mp4+"_"+mt4,fri=mp5+"_"+mt5,sat=mp6+"_"+mt6,tm=lst[j])
         obj.save();
         return redirect(home)
     return render(request,"timetabledisp.html")
-                    
+def displayTimeTable(request):
+    if request.method=='POST':
+        tm=request.POST['tm']
+        print(tm)
+        dy=request.POST['day']
+        obj1=TimeTable2.objects.filter(tm= tm)
+        obj2=TimeTable3.objects.filter(tm= tm)
+        obj3=TimeTable4.objects.filter(tm= tm)
+        lst1=[]
+        lst2=[]
+        lst3=[]
+        if(dy=='1'):
+            for i in obj1:
+                lst1.append(i.mon.split("_"))
+            for i in obj2:
+                lst2.append(i.mon.split("_"))
+            for i in obj3:
+                lst3.append(i.mon.split("_"))
+
+        elif(dy=='2'):
+            for i in obj1:
+                lst1.append(i.tue.split("_"))
+            for i in obj2:
+                lst2.append(i.tue.split("_"))
+            for i in obj3:
+                lst3.append(i.tue.split("_"))
+        elif(dy=='3'):
+            for i in obj1:
+                lst1.append(i.wed.split("_"))
+            for i in obj2:
+                lst2.append(i.wed.split("_"))
+            for i in obj3:
+                lst3.append(i.wed.split("_"))
+        elif(dy=='4'):
+            for i in obj1:
+                lst1.append(i.thu.split("_"))
+            for i in obj2:
+                lst2.append(i.thu.split("_"))
+            for i in obj3:
+                lst3.append(i.thu.split("_"))
+        elif(dy=='5'):
+            for i in obj1:
+                lst1.append(i.fri.split("_"))
+            for i in obj2:
+                lst2.append(i.fri.split("_"))
+            for i in obj3:
+                lst3.append(i.fri.split("_"))
+        elif(dy=='6'):
+            for i in obj1:
+                lst1.append(i.sat.split("_"))
+            for i in obj2:
+                lst2.append(i.sat.split("_"))
+            for i in obj3:
+                lst3.append(i.sat.split("_"))
+        
+        return render(request,'timetabledummy.html',{'lst1':lst1,'lst2':lst2,'lst3':lst3}) 
+    lst1=[]
+    lst2=[]
+    lst3=[]
+    return render(request,'timetabledummy.html',{'lst1':lst1,'lst2':lst2,'lst3':lst3})              
 
