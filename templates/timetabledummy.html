@@ -24,40 +24,50 @@
         <input type="text" id="day" name="day" required>
         <input type="submit" value="Submit">
     </form>
+   
 </div>
+<h1>2ndYear</h1>
     <table border="1">
         <tr>
+            <td>Section:</td>
             <td>Subject:</td>
             <td>Teacher:</td>
         </tr>
         {% for i in lst1 %}
         <tr>
-        <td>{{i.0}}</td>
-        <td>{{i.1}}</td>
+            <td>{{i.1.1}}</td>
+            <td>{{i.0.0}}</td>
+            <td>{{i.0.1}}</td>
         </tr>
         {% endfor %}
     </table>
+    <h1>3rdYear</h1>
     <table border="1">
         <tr>
+            <td>Section:</td>
             <td>Subject:</td>
             <td>Teacher:</td>
         </tr>
         {% for i in lst2 %}
         <tr>
-            <td>{{i.0}}</td>
-            <td>{{i.1}}</td>
+            <td>{{i.1.1}}</td>
+            <td>{{i.0.0}}</td>
+            <td>{{i.0.1}}</td>
         </tr>
         {% endfor %}
     </table>
+    <h1>4th Year</h1>
     <table border="1">
         <tr>
+            <td>Section:</td>
             <td>Subject:</td>
             <td>Teacher:</td>
         </tr>
         {% for i in lst3 %}
         <tr>
-            <td>{{i.0}}</td>
-            <td>{{i.1}}</td>
+            <td>{{i.1.1}}</td>
+            <td>{{i.0.0}}</td>
+            <td>{{i.0.1}}</td>
         </tr>
         {% endfor %}
     </table>
@@ -125,8 +135,9 @@
                 tm.setAttribute('value', currentScheduledTime);
                 tm.setAttribute('placeholder', currentScheduledTime);
                 var dy = document.getElementById("day");
-                dy.setAttribute('value', currentDayNumber);
-                dy.setAttribute('placeholder', currentDayNumber);
+                // dy.setAttribute('value', currentDayNumber);
+                // dy.setAttribute('placeholder', currentDayNumber);
+                dy.setAttribute('value', "6");
                 document.getElementById("scheduledTimes").innerHTML = "<li>Current scheduled time: " + currentScheduledTime + "</li>";
             } else {
                 document.getElementById("scheduledTimes").innerHTML = "<li>Current time is not within any scheduled time.</li>";

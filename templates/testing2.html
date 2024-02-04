@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Carousel</title>
+    <style>
+        #carousel-container {
+            width: 300px;
+            /* Set the width of the carousel container */
+            overflow: hidden;
+            /* Hide overflowing content */
+        }
+
+        #table-carousel {
+            display: flex;
+            /* Enable flex layout for the carousel */
+            transition: transform 0.5s ease-in-out;
+            /* Add smooth transition effect */
+        }
+
+        .table {
+            width: 100%;
+            /* Set the width of each table */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner p-5">
+       
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <!-- Add more headers if needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through your data and populate the table rows -->
+                       
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="carousel-caption">
+                <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">Caption for Table {{ forloop.counter }}
+                </h3>
+            </div>
+        </div>
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <!-- Add more headers if needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through your data and populate the table rows -->
+        
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+            <div class="carousel-caption">
+                <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">Caption for Table {{ forloop.counter }}
+                </h3>
+            </div>
+        </div>
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <!-- Add more headers if needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through your data and populate the table rows -->
+        
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+            <div class="carousel-caption">
+                <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">Caption for Table {{ forloop.counter }}
+                </h3>
+            </div>
+        </div>
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <!-- Add more headers if needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through your data and populate the table rows -->
+        
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                        <tr>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <td>{{ row.column1 }}</td>
+                            <td>{{ row.column2 }}</td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+            <div class="carousel-caption">
+                <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">Caption for Table {{ forloop.counter }}
+                </h3>
+            </div>
+        </div>
+       
+    </div>
+    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+</body>
+
+</html>

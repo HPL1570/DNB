@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -38,7 +38,8 @@
         .async-hide {
             opacity: 0 !important
         }
-        #navbarBlur{
+
+        #navbarBlur {
             background-color: #4e526f;
             color: aliceblue;
         }
@@ -49,7 +50,7 @@
 <body class="g-sidenav-show  bg-gray-200">
 
 
-    
+
     <!--Side Panel End-->
 
 
@@ -66,8 +67,8 @@
                     <h1 class="font-weight-bolder mb-0" style="color: aliceblue;font-family: 'Poppins', sans-serif;
  font-weight: 300; font-size: 30px;">Digital Notice Board</h1>
                 </nav>
-                    
-                </div>
+
+            </div>
             </div>
         </nav>
         <!--Nav header End-->
@@ -81,7 +82,7 @@
                                 <i class="material-icons opacity-10">live_tv</i>
                             </div>
                             <div class="text-end pt-1">
-        
+
                                 <h4 class="mb-0">Set Display Options</h4>
                                 <br>
                             </div>
@@ -93,21 +94,21 @@
                         </div>
                     </div>
                 </div>
-           </div>
+            </div>
         </div>
-        
 
-       <!--Task bar end-->
+
+        <!--Task bar end-->
         <div class="container-fluid py-4">
             <div class="row justify-content-center">
-               
-                
+
+
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
-                            class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                            <i class="material-icons opacity-10">image</i>
+                                class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                                <i class="material-icons opacity-10">image</i>
                             </div>
                             <div class="text-end pt-1">
                                 <h4 class="mb-0">UPLOAD IMAGES</h4>
@@ -128,7 +129,7 @@
                         <div class="card-header p-3 pt-2">
                             <div
                                 class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">image</i>
+                                <i class="material-icons opacity-10">picture_as_pdf</i>
                             </div>
                             <div class="text-end pt-1">
                                 <h4 class="mb-0">UPLOAD PDFs</h4>
@@ -143,7 +144,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
 
 
@@ -172,7 +173,7 @@
                         <div class="card-header p-3 pt-2">
                             <div
                                 class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">videocam</i>
+                                <i class="material-icons opacity-10">image</i>
                             </div>
                             <div class="text-end pt-1">
                                 <h4 class="mb-0">DELETE IMAGES</h4>
@@ -181,17 +182,22 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
+
                             <!-- <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p> -->
                             <a href='{% url "delimg" %}' class="btn btn-primary">DELETE</a>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <h1></h1>
+                    <br><br>
                 </div>
                 <div class="col-xl-3 col-sm-6">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
                             <div
                                 class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <i class="material-icons opacity-10">videocam</i>
+                                <i class="material-icons opacity-10">picture_as_pdf</i>
                             </div>
                             <div class="text-end pt-1">
                                 <h4 class="mb-0">DELETE PDFS</h4>
@@ -227,109 +233,109 @@
                 </div>
 
             </div><!--end cards-->
-            
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            // Sample list of tasks
-            let tasks = [
 
-            ];
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                // Sample list of tasks
+                let tasks = [
 
-            // Function to render the tasks
-            function renderTasks() {
-                const taskListTable = $("#taskList");
-                taskListTable.empty();
+                ];
 
-                tasks.forEach(task => {
-                    const taskRow = $("<tr>");
-                    taskRow.append($("<td>").text(task.task));
-                    taskRow.append($("<td>").text(task.status));
+                // Function to render the tasks
+                function renderTasks() {
+                    const taskListTable = $("#taskList");
+                    taskListTable.empty();
 
-                    const actionsTd = $("<td>");
-                    const removeBtn = $("<button>").addClass("btn btn-danger btn-sm me-2").text("Remove");
-                    removeBtn.on("click", function () {
-                        const taskId = task.id;
-                        tasks = tasks.filter(t => t.id !== taskId);
-                        renderTasks();
-                        updateTaskCount();
+                    tasks.forEach(task => {
+                        const taskRow = $("<tr>");
+                        taskRow.append($("<td>").text(task.task));
+                        taskRow.append($("<td>").text(task.status));
+
+                        const actionsTd = $("<td>");
+                        const removeBtn = $("<button>").addClass("btn btn-danger btn-sm me-2").text("Remove");
+                        removeBtn.on("click", function () {
+                            const taskId = task.id;
+                            tasks = tasks.filter(t => t.id !== taskId);
+                            renderTasks();
+                            updateTaskCount();
+                        });
+
+                        const completedBtn = $("<button>").addClass("btn btn-success btn-sm").text("Completed");
+                        completedBtn.on("click", function () {
+                            task.status = "completed";
+                            renderTasks();
+                            updateTaskCount();
+                            alert("Task '" + task.task + "' marked as completed.");
+                        });
+
+                        actionsTd.append(removeBtn);
+                        actionsTd.append(completedBtn);
+                        taskRow.append(actionsTd);
+
+                        taskListTable.append(taskRow);
                     });
-
-                    const completedBtn = $("<button>").addClass("btn btn-success btn-sm").text("Completed");
-                    completedBtn.on("click", function () {
-                        task.status = "completed";
-                        renderTasks();
-                        updateTaskCount();
-                        alert("Task '" + task.task + "' marked as completed.");
-                    });
-
-                    actionsTd.append(removeBtn);
-                    actionsTd.append(completedBtn);
-                    taskRow.append(actionsTd);
-
-                    taskListTable.append(taskRow);
-                });
-            }
-
-            // Function to update completed tasks count
-            function updateTaskCount() {
-                const completedTasksCount = tasks.filter(task => task.status === "completed").length;
-                $("#completedTasksCount").text(completedTasksCount);
-            }
-
-            // Function to handle form submission and add new task
-            $("#addTaskForm").submit(function (event) {
-                event.preventDefault();
-                const taskNameInput = $(this).find("input");
-                const taskName = taskNameInput.val().trim();
-                if (taskName !== "") {
-                    tasks.push({ id: Date.now(), task: taskName, status: "pending" });
-                    renderTasks();
-                    updateTaskCount();
-                    taskNameInput.val(""); // Clear the input field after adding the task
                 }
-            });
 
-            // Initial rendering
-            renderTasks();
-            updateTaskCount();
-        </script>
+                // Function to update completed tasks count
+                function updateTaskCount() {
+                    const completedTasksCount = tasks.filter(task => task.status === "completed").length;
+                    $("#completedTasksCount").text(completedTasksCount);
+                }
 
-        <!--Completed task manager-->
-        <footer class="footer py-4  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-                        <div class="copyright text-center text-sm text-muted text-lg-start">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>,
-                            made with <i class="fa fa-heart"></i> by
-                            <a href="" class="font-weight-bold" target="_blank">Team
-                                DNB</a>
-                            for CSE Department.
+                // Function to handle form submission and add new task
+                $("#addTaskForm").submit(function (event) {
+                    event.preventDefault();
+                    const taskNameInput = $(this).find("input");
+                    const taskName = taskNameInput.val().trim();
+                    if (taskName !== "") {
+                        tasks.push({ id: Date.now(), task: taskName, status: "pending" });
+                        renderTasks();
+                        updateTaskCount();
+                        taskNameInput.val(""); // Clear the input field after adding the task
+                    }
+                });
+
+                // Initial rendering
+                renderTasks();
+                updateTaskCount();
+            </script>
+
+            <!--Completed task manager-->
+            <footer class="footer py-4  ">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-lg-6 mb-lg-0 mb-4">
+                            <div class="copyright text-center text-sm text-muted text-lg-start">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                made with <i class="fa fa-heart"></i> by
+                                <a href="" class="font-weight-bold" target="_blank">Team
+                                    DNB</a>
+                                for CSE Department.
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="https://srivasaviengg.ac.in" class="nav-link text-muted"
+                                        target="_blank">Sri
+                                        Vasavi Engineering College</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link text-muted" target="_blank">About
+                                        Us</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://srivasaviengg.ac.in" class="nav-link text-muted" target="_blank">Sri
-                                    Vasavi Engineering College</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link text-muted"
-                                    target="_blank">About
-                                    Us</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
         </div>
     </main>
-   
+
 
     <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
     <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>

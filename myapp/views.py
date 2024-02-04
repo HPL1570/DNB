@@ -279,47 +279,102 @@ def displayTimeTable(request):
         lst3=[]
         if(dy=='1'):
             for i in obj1:
-                lst1.append(i.mon.split("_"))
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.mon.split("_"))
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.mon.split("_"))
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+            
 
         elif(dy=='2'):
             for i in obj1:
-                lst1.append(i.tue.split("_"))
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.tue.split("_"))
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.tue.split("_"))
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
         elif(dy=='3'):
             for i in obj1:
-                lst1.append(i.wed.split("_"))
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.wed.split("_"))
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.wed.split("_"))
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
         elif(dy=='4'):
             for i in obj1:
-                lst1.append(i.thu.split("_"))
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.thu.split("_"))
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.thu.split("_"))
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
         elif(dy=='5'):
             for i in obj1:
-                lst1.append(i.fri.split("_"))
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.fri.split("_"))
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.fri.split("_"))
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
         elif(dy=='6'):
             for i in obj1:
-                lst1.append(i.sat.split("_"))
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
             for i in obj2:
-                lst2.append(i.sat.split("_"))
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
             for i in obj3:
-                lst3.append(i.sat.split("_"))
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
         
         return render(request,'timetabledummy.html',{'lst1':lst1,'lst2':lst2,'lst3':lst3}) 
     lst1=[]
