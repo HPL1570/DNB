@@ -177,10 +177,14 @@ def storepdfs(request):
     print(logged_in)
     if logged_in:
         if request.method=='POST':
+            print("took")
             pdf=request.FILES['pdf']
             name=request.POST['name']
+            print(name)
+            print(pdf)
             obj=StorePDFs.objects.create(name=name,pdf_file=pdf)
             obj.save();
+            print("hai")
             # return redirect(home)
             return render(request, 'home.html')
         return render(request,"storepdfs.html")

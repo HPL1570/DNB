@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link
             href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Inter:wght@300;400&family=Lora:ital,wght@1,600&family=Open+Sans:wght@300&family=Oswald&family=Poppins:wght@300&family=Quicksand:wght@300&family=Ysabeau:ital,wght@1,100&display=swap"
             rel="stylesheet">
@@ -294,8 +299,8 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        </div>
         <script>
+           
             $(document).ready(function () {
                 $('#carouselExample').on('slid.bs.carousel', function () {
                     var currentIndex = $(this).find('.active').index();
@@ -304,11 +309,16 @@
                     // Check if the next slide is the first one (wrap around)
                     if (currentIndex === totalItems - 1) {
                         // Reload the page
-                        refreshTimeout = setTimeout(refreshPage, 3000);
+                        refreshTimeout = setTimeout(refreshPage, 1000);
+                        console.log(refreshTimeout);
                     }
                 });
             });
+            
         </script>
+        
+        </div>
+        
 
         {% elif val == 3 %}
         {% for video in videos %}
@@ -359,7 +369,7 @@
                 for (var pageNum = 1; pageNum <= numPages; pageNum++) {
                     // Fetch the page
                     pdf.getPage(pageNum).then(function (page) {
-                        var scale = 1.5;
+                        var scale = 2.5;
                         var viewport = page.getViewport({ scale: scale });
 
                         // Prepare canvas using PDF page dimensions
@@ -410,10 +420,10 @@
                 var distance = targetPosition - currentPosition;
 
                 // Set the duration of the scroll animation (in milliseconds)
-                var duration = 1000; // 1 second
+                var duration = 1000000; // 1 second
 
                 // Calculate the number of frames based on the duration
-                var frames = 200; // 60 frames per second
+                var frames = 5000; // 60 frames per second
 
                 // Calculate the interval between each frame
                 var interval = duration / frames;
@@ -455,30 +465,27 @@
 
         {% endif %}
 
-
-
-
-
-
-
-
-
-
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
-        
-
-        
-
         <script>
             // Function to refresh the page
             function refreshPage() {
                 location.reload(true); // true forces a reload from the server, not from the cache
             }
         </script>
+
+
+
+
+
+
+
+
+        
+        
+        
+
+        
+
+        
 
 
     </body>
