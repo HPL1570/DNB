@@ -18,21 +18,18 @@
             rel="stylesheet">
         <style>
             /* Updated styling with background color and increased text size */
-            body {
+         .typing-text1 {
                 margin: 0;
                 height: 100vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                /*background-color: #0d135cf4;*/
                 background-color: #000000;
-                /* Change background color */
                 text-align: justify;
-                /* color: white; */
                 color: #c4124d;
 
 
-            }
+        } 
 
             html {
                 overflow-y: hidden;
@@ -50,15 +47,232 @@
                 padding: 10px;
                 /* Add padding for better visibility */
             }
+            #hidediv {
+            display: none;
+        }
         </style>
     </head>
 
     <body>
 
         <!-- Create a container for the typing effect -->
-        {% if val == 1 %}
-        <div id="typing-text"></div>
+        {% if val == 0 %}
+
+
+
+
+        <p id="currentTime"></p>
+        <ul id="scheduledTimes"></ul>
+        <div id="hidediv">
+            <form id="myForm" action="display1" method="post">
+                <!-- Your form fields go here -->
+                {% csrf_token %}
+                <label for="username">time:</label>
+                <input type="text" id="tm" name="tm" required>
+                <input type="text" id="day" name="day" required>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+        
+                <!-- 2nd Year -->
+                <div class="carousel-item active">
+                    <h1>2nd Year</h1>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Section</th>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                            </tr>
+                        </thead>
+                        {% for i in lst1 %}
+                        <tr>
+                            <td>{{i.1.1}}</td>
+                            <td>{{i.0.0}}</td>
+                            <td>{{i.0.1}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+        
+                <!-- 3rd Year -->
+                <div class="carousel-item">
+                    <h1>3rd Year</h1>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Section</th>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                            </tr>
+                        </thead>
+                        {% for i in lst2 %}
+                        <tr>
+                            <td>{{i.1.1}}</td>
+                            <td>{{i.0.0}}</td>
+                            <td>{{i.0.1}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+        
+                <!-- 4th Year -->
+                <div class="carousel-item">
+                    <h1>4th Year</h1>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Section</th>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                            </tr>
+                        </thead>
+                        {% for i in lst3 %}
+                        <tr>
+                            <td>{{i.1.1}}</td>
+                            <td>{{i.0.0}}</td>
+                            <td>{{i.0.1}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+        
+            </div>
+        
+            <!-- Add navigation arrows if needed -->
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
+        <!-- Include Bootstrap JS and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+        <script>
+            // Given list of time intervals
+            var timeIntervals = ["9:30-10:30", "10:30-11:20", "11:20-12:10", "12:10-13:00", "14:00-14:50", "14:50-15:40", "15:40-16:30"];
+
+            // Function to check if the current time is within the given list
+            function getCurrentScheduledTime() {
+                // Get the current time
+                var currentTime = new Date();
+
+                // Format the current time
+                var currentHours = currentTime.getHours();
+                var currentMinutes = currentTime.getMinutes();
+                var formattedCurrentTime = currentHours + ":" + currentMinutes;
+
+                // Check if the current time is in the list of scheduled times
+                for (var i = 0; i < timeIntervals.length; i++) {
+                    var [startTime, endTime] = timeIntervals[i].split('-');
+                    if (startTime <= formattedCurrentTime && formattedCurrentTime <= endTime) {
+                        return timeIntervals[i];
+                    }
+                }
+
+                // Return null if the current time is not within any scheduled time
+                return null;
+            }
+
+            // Function to update the time
+            function updateCurrentTime() {
+                // Get the current time
+                var currentTime = new Date();
+
+                // Format the time (adjust the format as needed)
+                var hours = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
+                var seconds = currentTime.getSeconds();
+                var currentDayNumber = currentTime.getDay();
+
+                // Create an array of days
+                var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+                // Get the current day name
+                var currentDayName = daysOfWeek[currentDayNumber];
+
+                console.log("Current day number:", currentDayNumber);
+                console.log("Current day name:", currentDayName);
+                // Add leading zeros if necessary
+                hours = (hours < 10) ? '0' + hours : hours;
+                minutes = (minutes < 10) ? '0' + minutes : minutes;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+                // Display the formatted time in the HTML element with id="currentTime"
+                document.getElementById("currentTime").innerHTML = hours + ":" + minutes + ":" + seconds;
+
+                // Check if the current time is within the scheduled times
+                var currentScheduledTime = getCurrentScheduledTime();
+
+                // Display the result
+                if (currentScheduledTime !== null) {
+                    var tm = document.getElementById("tm");
+                    tm.setAttribute('value', currentScheduledTime);
+                    tm.setAttribute('placeholder', currentScheduledTime);
+                    var dy = document.getElementById("day");
+                    dy.setAttribute('value', currentDayNumber);
+                    dy.setAttribute('placeholder', currentDayNumber);
+                    //dy.setAttribute('value', "6");
+                    document.getElementById("scheduledTimes").innerHTML = "<li>Current scheduled time: " + currentScheduledTime + "</li>";
+                } else {
+                    document.getElementById("scheduledTimes").innerHTML = "<li>Current time is not within any scheduled time.</li>";
+                }
+            }
+
+
+
+            //Function to submit the form
+            function submitForm() {
+                updateCurrentTime();
+                document.getElementById('myForm').submit();
+            }
+
+            setInterval(submitForm, 10000);
+            // Set up a timer to submit the form every 2 minutes (120000 milliseconds)
+
+        </script>
+
+
+
+
+        {% elif val == 1 %}
+        <div class="typing-text1"><div id="typing-text"></div></div>
+        
+        <script>
+            // JavaScript to create typing effect
+            const textToType = "{{data}}";
+            let index = 0;
+            const speed = 50; // Adjust the speed in milliseconds
+
+            function typeText() {
+                document.getElementById('typing-text').textContent += textToType.charAt(index);
+                index++;
+
+                if (index < textToType.length) {
+                    setTimeout(typeText, speed);
+                }
+                else {
+                    refreshTimeout = setTimeout(refreshPage, 3000);
+                }
+            }
+
+            // Start the typing effect when the page loads
+            window.onload = function () {
+                typeText();
+            };
+        </script>
         {% elif val == 2 %}
+        <div class="typing-text1">
         <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="3000">
             <div class="carousel-inner p-5">
                 {% for i in imgs %}
@@ -80,6 +294,21 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#carouselExample').on('slid.bs.carousel', function () {
+                    var currentIndex = $(this).find('.active').index();
+                    var totalItems = $(this).find('.carousel-item').length;
+
+                    // Check if the next slide is the first one (wrap around)
+                    if (currentIndex === totalItems - 1) {
+                        // Reload the page
+                        refreshTimeout = setTimeout(refreshPage, 3000);
+                    }
+                });
+            });
+        </script>
 
         {% elif val == 3 %}
         {% for video in videos %}
@@ -88,12 +317,30 @@
             Your browser does not support the video tag.
         </video>
         {% endfor %}
+        <script>
+            var video = document.querySelector('video');
+            var refreshTimeout;
+
+            video.addEventListener('ended', function () {
+                console.log("$$$$$$$$");
+                // Video has ended, start the refresh timer
+                refreshTimeout = setTimeout(refreshPage, 3000);
+            });
+
+            video.addEventListener('play', function () {
+                clearTimeout(refreshTimeout);
+            });
+            setTimeout(function () {
+                if (video.ended) {
+                    refreshPage();
+                }
+            }, 3000);
+        </script>
         {% elif val == 4 %}
 
-
+        
         {% for pdf in pdfs %}
         <div id="pdf-viewer"></div>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
         <script>
             // URL to your PDF file
@@ -221,63 +468,10 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script>
-            // JavaScript to create typing effect
-            const textToType = "{{data}}";
-            let index = 0;
-            const speed = 50; // Adjust the speed in milliseconds
+        
+        
 
-            function typeText() {
-                document.getElementById('typing-text').textContent += textToType.charAt(index);
-                index++;
-
-                if (index < textToType.length) {
-                    setTimeout(typeText, speed);
-                }
-                else {
-                    refreshTimeout = setTimeout(refreshPage, 3000);
-                }
-            }
-
-            // Start the typing effect when the page loads
-            window.onload = function () {
-                typeText();
-            };
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#carouselExample').on('slid.bs.carousel', function () {
-                    var currentIndex = $(this).find('.active').index();
-                    var totalItems = $(this).find('.carousel-item').length;
-
-                    // Check if the next slide is the first one (wrap around)
-                    if (currentIndex === totalItems - 1) {
-                        // Reload the page
-                        refreshTimeout = setTimeout(refreshPage, 3000);
-                    }
-                });
-            });
-        </script>
-
-        <script>
-            var video = document.querySelector('video');
-            var refreshTimeout;
-
-            video.addEventListener('ended', function () {
-                console.log("$$$$$$$$");
-                // Video has ended, start the refresh timer
-                refreshTimeout = setTimeout(refreshPage, 3000);
-            });
-
-            video.addEventListener('play', function () {
-                clearTimeout(refreshTimeout);
-            });
-            setTimeout(function () {
-                if (video.ended) {
-                    refreshPage();
-                }
-            }, 3000);
-        </script>
+        
 
         <script>
             // Function to refresh the page

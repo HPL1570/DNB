@@ -27,20 +27,7 @@ def home(request):
 def directlyToHome(request):
     return render(request, 'home.html')
 
-def display1(request):
-    obj1=AnnounceText.objects.all();
-    dmy=Dummy.objects.all()
-    dmy1=dmy[0]
-    dmy2=dmy1.val
-    l=len(obj1)
-    obj2=obj1[l-1];
-    dt=obj2.text
-    imgs=StoreImages.objects.filter(boolval=1)
-    vd=Video.objects.filter(boolval=1)
-    pdf = StorePDFs.objects.filter(boolval=1)
-    print(len(pdf))
-    flag = True
-    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf})
+
 def storetext(request):
     global logged_in
     print(logged_in)
@@ -209,6 +196,8 @@ def dummy(request):
             Dummy.objects.all().delete()
             obj=Dummy.objects.create(val=val)
             obj.save();
+            if(val=='0'):
+                return redirect(home)
             if(val=="1"):
                 return redirect(storetext)
             if(val=="2"):
@@ -381,4 +370,129 @@ def displayTimeTable(request):
     lst2=[]
     lst3=[]
     return render(request,'timetabledummy.html',{'lst1':lst1,'lst2':lst2,'lst3':lst3})              
+def display1(request):
+    obj1=AnnounceText.objects.all();
+    dmy=Dummy.objects.all()
+    dmy1=dmy[0]
+    dmy2=dmy1.val
+    l=len(obj1)
+    obj2=obj1[l-1];
+    dt=obj2.text
+    imgs=StoreImages.objects.filter(boolval=1)
+    vd=Video.objects.filter(boolval=1)
+    pdf = StorePDFs.objects.filter(boolval=1)
+    print(len(pdf))
+    flag = True
+    lst1=[]
+    lst2=[]
+    lst3=[]
+    if request.method=='POST':
+        tm=request.POST['tm']
+        print(tm)
+        dy=request.POST['day']
+        obj1=TimeTable2.objects.filter(tm= tm)
+        obj2=TimeTable3.objects.filter(tm= tm)
+        obj3=TimeTable4.objects.filter(tm= tm)
+        lst1=[]
+        lst2=[]
+        lst3=[]
+        if(dy=='1'):
+            for i in obj1:
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.mon.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+            
 
+        elif(dy=='2'):
+            for i in obj1:
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.tue.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+        elif(dy=='3'):
+            for i in obj1:
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.wed.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+        elif(dy=='4'):
+            for i in obj1:
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.thu.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+        elif(dy=='5'):
+            for i in obj1:
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.fri.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+        elif(dy=='6'):
+            for i in obj1:
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst1.append(l)
+            for i in obj2:
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst2.append(l)
+            for i in obj3:
+                l=[]
+                l.append(i.sat.split("_"))
+                l.append(i.year_section.split("_"))
+                lst3.append(l)
+    
+    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf,'lst1':lst1,'lst2':lst2,'lst3':lst3})

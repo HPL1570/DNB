@@ -12,7 +12,7 @@ class StoreImages(models.Model):
     text=models.CharField(max_length=500,default="SVEC CSE Department")
     boolval=models.IntegerField(default=0)
 class Dummy(models.Model):
-    val=models.IntegerField(default=1)
+    val=models.IntegerField(default=0)
 class Video(models.Model):
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to='videos/')    
