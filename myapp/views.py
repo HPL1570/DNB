@@ -12,10 +12,13 @@ def login(request):
     if request.method=='POST':
         id = request.POST['username']
         provided_password = request.POST['password']
-        user = User.objects.get(username=id)
+        try:
+            user = User.objects.get(username=id)
+        except:
+            return redirect(login)
         print(user.password)
-        logged_in = True
         if check_password(provided_password, user.password):
+            logged_in = True
             print("$$$$$$")
             return render(request, 'home.html')
         else:
@@ -86,48 +89,63 @@ def boolchange(request):
         return redirect(login)
 #****************************************************************
 def delimg(request):
-    if request.method=='POST':
-        cmlst=request.POST['text']
-        lst=cmlst.split(",")
-        valid_ids = [id for id in lst if id.isdigit()]
-        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
-        #StoreImages.objects.all().update(boolval=0);
-        StoreImages.objects.filter(id__in=valid_ids).delete();
-        # return redirect(home)
-        return render(request, 'home.html')
-    obj1=StoreImages.objects.filter(name="Placements")
-    obj2=StoreImages.objects.filter(name="Internships")
-    obj3=StoreImages.objects.filter(name="sports")
-    obj4=StoreImages.objects.filter(name="Achievements")
-    return render(request,"del_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+    global logged_in
+    print(logged_in)
+    if logged_in:
+        if request.method=='POST':
+            cmlst=request.POST['text']
+            lst=cmlst.split(",")
+            valid_ids = [id for id in lst if id.isdigit()]
+            #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+            #StoreImages.objects.all().update(boolval=0);
+            StoreImages.objects.filter(id__in=valid_ids).delete();
+            # return redirect(home)
+            return render(request, 'home.html')
+        obj1=StoreImages.objects.filter(name="Placements")
+        obj2=StoreImages.objects.filter(name="Internships")
+        obj3=StoreImages.objects.filter(name="sports")
+        obj4=StoreImages.objects.filter(name="Achievements")
+        return render(request,"del_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+    else:
+        return redirect(login)
 def delpdf(request):
-    if request.method=='POST':
-        cmlst=request.POST['text']
-        lst=cmlst.split(",")
-        valid_ids = [id for id in lst if id.isdigit()]
-        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
-        #StoreImages.objects.all().update(boolval=0);
-        StorePDFs.objects.filter(id__in=valid_ids).delete();
-        # return redirect(home)
-        return render(request, 'home.html')
-    pdf1=StorePDFs.objects.filter(name="TimeTable")
-    pdf2=StorePDFs.objects.filter(name="MidExaminations")
-    pdf3=StorePDFs.objects.filter(name="Semester")
-    pdf4=StorePDFs.objects.filter(name="Supplementary")
-    #return render(request, 'selectpdfs.html',{'pdfs':pdfs})
-    return render(request, 'del_pdf.html',{'pdf1':pdf1,'pdf2':pdf2,'pdf3':pdf3,'pdf4':pdf4})
+    global logged_in
+    print(logged_in)
+    if(logged_in):
+        if request.method=='POST':
+            cmlst=request.POST['text']
+            lst=cmlst.split(",")
+            valid_ids = [id for id in lst if id.isdigit()]
+            #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+            #StoreImages.objects.all().update(boolval=0);
+            StorePDFs.objects.filter(id__in=valid_ids).delete();
+            # return redirect(home)
+            return render(request, 'home.html')
+        pdf1=StorePDFs.objects.filter(name="TimeTable")
+        pdf2=StorePDFs.objects.filter(name="MidExaminations")
+        pdf3=StorePDFs.objects.filter(name="Semester")
+        pdf4=StorePDFs.objects.filter(name="Supplementary")
+        #return render(request, 'selectpdfs.html',{'pdfs':pdfs})
+        return render(request, 'del_pdf.html',{'pdf1':pdf1,'pdf2':pdf2,'pdf3':pdf3,'pdf4':pdf4})
+    else:
+        return redirect(login)
 def delvideo(request):
-    if request.method=='POST':
-        cmlst=request.POST['text']
-        lst=cmlst.split(",")
-        valid_ids = [id for id in lst if id.isdigit()]
-        #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
-        #StoreImages.objects.all().update(boolval=0);
-        Video.objects.filter(id__in=valid_ids).delete();
-        # return redirect(home)
-        return render(request, 'home.html')
-    vd=Video.objects.all()
-    return render(request,"del_video.html",{'videos':vd})
+    global logged_in
+    print(logged_in)
+    if(logged_in):
+        if request.method=='POST':
+            cmlst=request.POST['text']
+            lst=cmlst.split(",")
+            valid_ids = [id for id in lst if id.isdigit()]
+            #   YourModel.objects.filter(id__in=selected_ids).update(your_attribute=1)
+            #StoreImages.objects.all().update(boolval=0);
+            Video.objects.filter(id__in=valid_ids).delete();
+            # return redirect(home)
+            return render(request, 'home.html')
+        vd=Video.objects.all()
+        return render(request,"del_video.html",{'videos':vd})
+    else:
+        return redirect(login)
 
 
 
