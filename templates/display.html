@@ -270,10 +270,23 @@
                     refreshTimeout = setTimeout(refreshPage, 3000);
                 }
             }
+            function changeTextColor() {
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+            const textElement = document.getElementById('typing-text');
+
+            // Calculate a random index within the colors array bounds
+            const randomIndex = Math.floor(Math.random() * colors.length);
+            const newColor = colors[randomIndex];
+
+            // Set the text color and display a log message in the console
+            textElement.style.color = newColor;
+            console.log("Text color changed to:", newColor);
+        }
 
             // Start the typing effect when the page loads
             window.onload = function () {
                 typeText();
+                changeTextColor();
             };
         </script>
         {% elif val == 2 %}

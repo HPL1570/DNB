@@ -29,7 +29,8 @@ def home(request):
 
 def directlyToHome(request):
     return render(request, 'home.html')
-
+def aboutus(request):
+    return render(request,'aboutus.html')
 
 def storetext(request):
     global logged_in
