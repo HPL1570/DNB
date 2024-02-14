@@ -3,7 +3,23 @@ from .models import AnnounceText,StoreImages,Dummy, StorePDFs,Video,TimeTable2,T
 from .forms import StoreImagesForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+import requests
+import pandas as pd
 # Create your views here.
+
+url = "https://sves.org.in/studentapi/api/timetable"
+headers = {
+  'Authorization': 'Bearer 6fsorrFRRgU49uON/HdSQWm1fzs2dlKBNz+EvfraZRjdjsy/t9vT6eTFhAS/GPTugXebNkK7TPnE4c1kMXEQf1hnBTVOz3lEgFWDdJ0xVwFjeZmq9UOV8A=='
+}
+
+
+
+# response = requests.request("GET", url, headers=headers)
+# data = response.json()
+
+# df = pd.DataFrame(data)
+# print(df)
+
 
 logged_in = False
 def login(request):
@@ -20,7 +36,8 @@ def login(request):
         if check_password(provided_password, user.password):
             logged_in = True
             print("$$$$$$")
-            return render(request, 'home.html')
+
+            return render(request, 'home.html',)
         else:
             return redirect(login)
     return render(request,'login.html')
@@ -150,10 +167,6 @@ def delvideo(request):
 
 
 
-
-
-
-
 def selectvideo(request):
     global logged_in
     if logged_in:
@@ -220,7 +233,7 @@ def dummy(request):
             obj=Dummy.objects.create(val=val)
             obj.save();
             if(val=='0'):
-                return redirect(home)
+                return render(request, "home.html")
             if(val=="1"):
                 return redirect(storetext)
             if(val=="2"):
@@ -394,6 +407,7 @@ def displayTimeTable(request):
     lst3=[]
     return render(request,'timetabledummy.html',{'lst1':lst1,'lst2':lst2,'lst3':lst3})              
 def display1(request):
+    
     obj1=AnnounceText.objects.all();
     dmy=Dummy.objects.all()
     dmy1=dmy[0]
@@ -410,112 +424,25 @@ def display1(request):
     lst2=[]
     lst3=[]
     if request.method=='POST':
-        tm=request.POST['tm']
-        print(tm)
-        dy=request.POST['day']
-        obj1=TimeTable2.objects.filter(tm= tm)
-        obj2=TimeTable3.objects.filter(tm= tm)
-        obj3=TimeTable4.objects.filter(tm= tm)
-        lst1=[]
-        lst2=[]
-        lst3=[]
-        if(dy=='1'):
-            for i in obj1:
-                l=[]
-                l.append(i.mon.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.mon.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.mon.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
-            
+        # tm=request.POST['tm']
+        # print(tm)
+        # dy=request.POST['day']
+        # obj1=TimeTable2.objects.filter(tm= tm)
+        # obj2=TimeTable3.objects.filter(tm= tm)
+        # obj3=TimeTable4.objects.filter(tm= tm)
+        year2=[]
+        year3=[]
+        year4=[]
+        response = requests.request("GET", url, headers=headers)
+        data = response.json()
+        df = pd.DataFrame(data)
+        df = df[(df["branch"] == "CSE") | (df["branch"] == "CST")]
+        print(df)
+        year2df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "IV Semester") | (df["semester"] == "III Semester"))]
+        year3df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "V Semester") | (df["semester"] == "VI Semester"))]
+        print(year2df)
+        print(year3df)
 
-        elif(dy=='2'):
-            for i in obj1:
-                l=[]
-                l.append(i.tue.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.tue.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.tue.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
-        elif(dy=='3'):
-            for i in obj1:
-                l=[]
-                l.append(i.wed.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.wed.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.wed.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
-        elif(dy=='4'):
-            for i in obj1:
-                l=[]
-                l.append(i.thu.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.thu.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.thu.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
-        elif(dy=='5'):
-            for i in obj1:
-                l=[]
-                l.append(i.fri.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.fri.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.fri.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
-        elif(dy=='6'):
-            for i in obj1:
-                l=[]
-                l.append(i.sat.split("_"))
-                l.append(i.year_section.split("_"))
-                lst1.append(l)
-            for i in obj2:
-                l=[]
-                l.append(i.sat.split("_"))
-                l.append(i.year_section.split("_"))
-                lst2.append(l)
-            for i in obj3:
-                l=[]
-                l.append(i.sat.split("_"))
-                l.append(i.year_section.split("_"))
-                lst3.append(l)
+        
     
     return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf,'lst1':lst1,'lst2':lst2,'lst3':lst3})
