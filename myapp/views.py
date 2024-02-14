@@ -430,19 +430,40 @@ def display1(request):
         # obj1=TimeTable2.objects.filter(tm= tm)
         # obj2=TimeTable3.objects.filter(tm= tm)
         # obj3=TimeTable4.objects.filter(tm= tm)
-        year2=[]
-        year3=[]
-        year4=[]
+        
         response = requests.request("GET", url, headers=headers)
         data = response.json()
         df = pd.DataFrame(data)
         df = df[(df["branch"] == "CSE") | (df["branch"] == "CST")]
-        print(df)
+        # print(df)
         year2df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "IV Semester") | (df["semester"] == "III Semester"))]
         year3df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "V Semester") | (df["semester"] == "VI Semester"))]
+        year4df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "VII Semester") | (df["semester"] == "VIII Semester"))]
         print(year2df)
         print(year3df)
-
+        print(year4df)
+        for i,r in year2df.iterrows():
+            lst=[]
+            lst.append(r["branch"]+"-"+r["section"])
+            lst.append(r["subjectname"])
+            lst.append(r["faculty"])
+            lst1.append(lst)
+        for i,r in year3df.iterrows():
+            lst=[]
+            lst.append(r["branch"]+"-"+r["section"])
+            lst.append(r["subjectname"])
+            lst.append(r["faculty"])
+            lst2.append(lst)
+        for i,r in year4df.iterrows():
+            lst=[]
+            lst.append(r["branch"]+"-"+r["section"])
+            lst.append(r["subjectname"])
+            lst.append(r["faculty"])
+            lst3.append(lst)
+        val1 = len(lst1)
+        val2 = len(lst2)
+        val3 = len(lst3)
+        print(val1, val2, val3)
+        # print(lst1)
         
-    
-    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf,'lst1':lst1,'lst2':lst2,'lst3':lst3})
+    return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf,'lst1':lst1,'lst2':lst2,'lst3':lst3,"val1":val1,"val2":val2,"val3":val3})

@@ -63,27 +63,28 @@
         <!-- Create a container for the typing effect -->
         {% if val == 0 %}
 
+    </body>
 
 
-
-        <p id="currentTime"></p>
+        <!-- <p id="currentTime"></p>
         <ul id="scheduledTimes"></ul>
         <div id="hidediv">
-            <form id="myForm" action="display1" method="post">
+            <form id="myForm" action="display1" method="post"> -->
                 <!-- Your form fields go here -->
-                {% csrf_token %}
-                <label for="username">time:</label>
+                <!-- <label for="username">time:</label>
                 <input type="text" id="tm" name="tm" required>
                 <input type="text" id="day" name="day" required>
                 <input type="submit" value="Submit">
             </form>
-        </div>
+        </div> -->
+        {% csrf_token %}
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
         
                 <!-- 2nd Year -->
                 <div class="carousel-item active">
                     <h1>2nd Year</h1>
+                    {% if val1 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -94,17 +95,21 @@
                         </thead>
                         {% for i in lst1 %}
                         <tr>
-                            <td>{{i.1.1}}</td>
-                            <td>{{i.0.0}}</td>
-                            <td>{{i.0.1}}</td>
+                            <td>{{i.0}}</td>
+                            <td>{{i.1}}</td>
+                            <td>{{i.2}}</td>
                         </tr>
                         {% endfor %}
                     </table>
+                    {% else %}
+                    <h1>NO CLASSWORK</h1>
+                    {% endif %}
                 </div>
         
                 <!-- 3rd Year -->
                 <div class="carousel-item">
                     <h1>3rd Year</h1>
+                    {% if val2 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -115,17 +120,21 @@
                         </thead>
                         {% for i in lst2 %}
                         <tr>
-                            <td>{{i.1.1}}</td>
-                            <td>{{i.0.0}}</td>
-                            <td>{{i.0.1}}</td>
+                            <td>{{i.0}}</td>
+                            <td>{{i.1}}</td>
+                            <td>{{i.2}}</td>
                         </tr>
                         {% endfor %}
                     </table>
+                    {% else %}
+                    <h1>NO CLASSWORK</h1>
+                    {% endif %}
                 </div>
         
                 <!-- 4th Year -->
                 <div class="carousel-item">
                     <h1>4th Year</h1>
+                    {% if val3 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
@@ -136,12 +145,15 @@
                         </thead>
                         {% for i in lst3 %}
                         <tr>
-                            <td>{{i.1.1}}</td>
-                            <td>{{i.0.0}}</td>
-                            <td>{{i.0.1}}</td>
+                            <td>{{i.0}}</td>
+                            <td>{{i.1}}</td>
+                            <td>{{i.2}}</td>
                         </tr>
                         {% endfor %}
                     </table>
+                    {% else %}
+                    <h1>NO CLASSWORK</h1>
+                    {% endif %}
                 </div>
         
             </div>
