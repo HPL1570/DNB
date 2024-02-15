@@ -10,7 +10,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script> -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link
             href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Inter:wght@300;400&family=Lora:ital,wght@1,600&family=Open+Sans:wght@300&family=Oswald&family=Poppins:wght@300&family=Quicksand:wght@300&family=Ysabeau:ital,wght@1,100&display=swap"
@@ -294,6 +294,7 @@
 
         {% elif val == 1 %}
         <div class="typing-text1"><div id="typing-text"></div></div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
         
         <script>
             // JavaScript to create typing effect
@@ -339,8 +340,9 @@
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                     <img src="{{ i.image.url }}" style="width: 100vh; height: 100vh; object-fit: cover;"
                         class="d-block w-100" alt="Slide {{ forloop.counter }}">
+
                     <div class="carousel-caption">
-                        <h3 style="color: #ed0754; font-family: 'Roboto Slab', serif;">{{ i.text }}</h3>
+                        <h3 style="color: white; font-family: 'Roboto Slab', serif;">{{ i.text }}</h3>
                     </div>
                 </div>
                 {% endfor %}
@@ -364,7 +366,7 @@
                     // Check if the next slide is the first one (wrap around)
                     if (currentIndex === totalItems - 1) {
                         // Reload the page
-                        refreshTimeout = setTimeout(refreshPage, 1000);
+                        refreshTimeout = setTimeout(refreshPage, 4000);
                         console.log(refreshTimeout);
                     }
                 });
@@ -526,23 +528,6 @@
                 location.reload(true); // true forces a reload from the server, not from the cache
             }
         </script>
-
-
-
-
-
-
-
-
-        
-        
-        
-
-        
-
-        
-
-
     </body>
 
 </html>

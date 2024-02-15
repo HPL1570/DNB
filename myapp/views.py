@@ -81,11 +81,12 @@ def domainimage(request):
     global logged_in
     # print(logged_in)
     if logged_in:
+        obj0=StoreImages.objects.filter(name="NAAC")
         obj1=StoreImages.objects.filter(name="Placements")
         obj2=StoreImages.objects.filter(name="Internships")
         obj3=StoreImages.objects.filter(name="sports")
         obj4=StoreImages.objects.filter(name="Achievements")
-        return render(request,"display_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+        return render(request,"display_img.html",{'data0':obj0,'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
     else:
         return redirect(login)
 def boolchange(request):
@@ -117,11 +118,12 @@ def delimg(request):
             StoreImages.objects.filter(id__in=valid_ids).delete();
             # return redirect(home)
             return render(request, 'home.html')
+        obj0=StoreImages.objects.filter(name="NAAC")
         obj1=StoreImages.objects.filter(name="Placements")
         obj2=StoreImages.objects.filter(name="Internships")
         obj3=StoreImages.objects.filter(name="sports")
         obj4=StoreImages.objects.filter(name="Achievements")
-        return render(request,"del_img.html",{'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
+        return render(request,"del_img.html",{'data0':obj0,'data1':obj1,'data2':obj2,'data3':obj3,'data4':obj4})
     else:
         return redirect(login)
 def delpdf(request):

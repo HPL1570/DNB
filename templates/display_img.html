@@ -11,7 +11,25 @@
 
    
     <div class="container ">
-        
+
+        <details class="shadow ">
+            <summary class="h2 mt-4 mx-3">NAAC</summary>
+            <div class="row">
+                {% for i in data0 %}
+                <div class="col-sm-12 col-md-6 col-lg-6 mb-4 ">
+                    <div class="card m-3">
+                        <img src="{{ i.image.url }}" class="card-img-top img-fluid " alt="Image">
+                        <div class="card-body">
+                            <input class="" type="checkbox" name="selected_objects" value="{{ i.id }}"
+                                onclick="updateSelectedValues(this)">
+                            <!-- Add other fields as needed -->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+           
 
      
 <details class="shadow ">
