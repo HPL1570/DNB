@@ -77,7 +77,8 @@
                 <input type="submit" value="Submit">
             </form>
         </div> -->
-        {% csrf_token %}
+        <!-- {% csrf_token %} -->
+        <p id="timeDisplay"></p>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
         
@@ -173,9 +174,38 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+        
 
         <script>
+            function updateTime() {
+                const now = new Date();
+                const day = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+    
+                const isLunchTime = hours >= 13 && hours < 14;
+    
+                let displayText = `<h2>${day}</h2><br><h2>${time}</h2>`;
+    
+                if (isLunchTime) {
+                    displayText += `<h2>It's lunchtime! ️</h2>`;
+                }
+    
+                document.getElementById('timeDisplay').innerHTML = displayText;
+            }
+            function refreshPage() {
+                location.reload(true); // true forces a reload from the server, not from the cache
+            }
+
+  // Set an interval to call the refreshPage function every 2 minutes (120,000 milliseconds)
+            setInterval(refreshPage, 120000);
+            setInterval(updateTime, 1000); // Update every second
+            updateTime(); // Update immediately on page load
+        </script>
+
+        <!-- <script>
             // Given list of time intervals
             var timeIntervals = ["9:30-10:30", "10:30-11:20", "11:20-12:10", "12:10-13:00", "14:00-14:50", "14:50-15:40", "15:40-16:30"];
 
@@ -257,7 +287,7 @@
             setInterval(submitForm, 10000);
             // Set up a timer to submit the form every 2 minutes (120000 milliseconds)
 
-        </script>
+        </script> -->
 
 
 

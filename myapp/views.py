@@ -35,8 +35,6 @@ def login(request):
         print(user.password)
         if check_password(provided_password, user.password):
             logged_in = True
-            print("$$$$$$")
-
             return render(request, 'home.html',)
         else:
             return redirect(login)
@@ -51,7 +49,7 @@ def aboutus(request):
 
 def storetext(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if(logged_in):
         if request.method=='POST':
             txt=request.POST['text']
@@ -66,7 +64,7 @@ def storetext(request):
         return redirect(login)
 def storeImage(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if logged_in:
         if request.method=='POST':
             name=request.POST['name']
@@ -81,7 +79,7 @@ def storeImage(request):
         return redirect(login)
 def domainimage(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if logged_in:
         obj1=StoreImages.objects.filter(name="Placements")
         obj2=StoreImages.objects.filter(name="Internships")
@@ -108,7 +106,7 @@ def boolchange(request):
 #****************************************************************
 def delimg(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if logged_in:
         if request.method=='POST':
             cmlst=request.POST['text']
@@ -128,7 +126,7 @@ def delimg(request):
         return redirect(login)
 def delpdf(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if(logged_in):
         if request.method=='POST':
             cmlst=request.POST['text']
@@ -149,7 +147,7 @@ def delpdf(request):
         return redirect(login)
 def delvideo(request):
     global logged_in
-    print(logged_in)
+    # print(logged_in)
     if(logged_in):
         if request.method=='POST':
             cmlst=request.POST['text']
@@ -212,11 +210,10 @@ def storepdfs(request):
             print("took")
             pdf=request.FILES['pdf']
             name=request.POST['name']
-            print(name)
-            print(pdf)
+            # print(name)
+            # print(pdf)
             obj=StorePDFs.objects.create(name=name,pdf_file=pdf)
             obj.save();
-            print("hai")
             # return redirect(home)
             return render(request, 'home.html')
         return render(request,"storepdfs.html")
@@ -294,7 +291,7 @@ def storeTimeTable(request):
 def displayTimeTable(request):
     if request.method=='POST':
         tm=request.POST['tm']
-        print(tm)
+        # print(tm)
         dy=request.POST['day']
         obj1=TimeTable2.objects.filter(tm= tm)
         obj2=TimeTable3.objects.filter(tm= tm)
@@ -418,52 +415,67 @@ def display1(request):
     imgs=StoreImages.objects.filter(boolval=1)
     vd=Video.objects.filter(boolval=1)
     pdf = StorePDFs.objects.filter(boolval=1)
-    print(len(pdf))
+    # print(len(pdf))
     flag = True
     lst1=[]
     lst2=[]
     lst3=[]
-    if request.method=='POST':
+    val1=0
+    val2=0
+    val3=0
+    # print((val1))
+    if (dmy2==0):
         # tm=request.POST['tm']
         # print(tm)
         # dy=request.POST['day']
         # obj1=TimeTable2.objects.filter(tm= tm)
         # obj2=TimeTable3.objects.filter(tm= tm)
         # obj3=TimeTable4.objects.filter(tm= tm)
+        data=''
+        try:
+            response = requests.request("GET", url, headers=headers)
+            data = response.json()
+            # print(data)
+        except Exception as e:
+            print(e)
+        if(data=="Not working hours" or data==""):
+            dt="Not working hours"
+        else:
+            df = pd.DataFrame(data)
+            # print('hai')
+            df = df[(df["branch"] == "CSE") | (df["branch"] == "CST")]
+            # print(df)
+            year2df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "IV Semester") | (df["semester"] == "III Semester"))]
+            year3df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "V Semester") | (df["semester"] == "VI Semester"))]
+            year4df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "VII Semester") | (df["semester"] == "VIII Semester"))]
+            # print(year2df)
+            # print(year3df)
+            # print(year4df)
+            for i,r in year2df.iterrows():
+                lst=[]
+                lst.append(r["branch"]+"-"+r["section"])
+                lst.append(r["subjectname"])
+                lst.append(r["faculty"])
+                lst1.append(lst)
+            for i,r in year3df.iterrows():
+                lst=[]
+                lst.append(r["branch"]+"-"+r["section"])
+                lst.append(r["subjectname"])
+                lst.append(r["faculty"])
+                lst2.append(lst)
+            for i,r in year4df.iterrows():
+                lst=[]
+                lst.append(r["branch"]+"-"+r["section"])
+                lst.append(r["subjectname"])
+                lst.append(r["faculty"])
+                lst3.append(lst)
         
-        response = requests.request("GET", url, headers=headers)
-        data = response.json()
-        df = pd.DataFrame(data)
-        df = df[(df["branch"] == "CSE") | (df["branch"] == "CST")]
-        # print(df)
-        year2df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "IV Semester") | (df["semester"] == "III Semester"))]
-        year3df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "V Semester") | (df["semester"] == "VI Semester"))]
-        year4df = df[((df["branch"] == "CSE") | (df["branch"] == "CST")) & ((df["semester"] == "VII Semester") | (df["semester"] == "VIII Semester"))]
-        print(year2df)
-        print(year3df)
-        print(year4df)
-        for i,r in year2df.iterrows():
-            lst=[]
-            lst.append(r["branch"]+"-"+r["section"])
-            lst.append(r["subjectname"])
-            lst.append(r["faculty"])
-            lst1.append(lst)
-        for i,r in year3df.iterrows():
-            lst=[]
-            lst.append(r["branch"]+"-"+r["section"])
-            lst.append(r["subjectname"])
-            lst.append(r["faculty"])
-            lst2.append(lst)
-        for i,r in year4df.iterrows():
-            lst=[]
-            lst.append(r["branch"]+"-"+r["section"])
-            lst.append(r["subjectname"])
-            lst.append(r["faculty"])
-            lst3.append(lst)
-        val1 = len(lst1)
-        val2 = len(lst2)
-        val3 = len(lst3)
-        print(val1, val2, val3)
-        # print(lst1)
+        if(len(lst1)!=0):
+            val1 = len(lst1)
+            val2 = len(lst2)
+            val3 = len(lst3)
+        # print(val1, val2, val3)
+    # if(val1 or val2 or val3==0  ):
+    #     dmy2=1
         
     return render(request,'display.html',{'data':dt,'imgs':imgs,'val':dmy2,'videos':vd, 'flag':flag, 'pdfs':pdf,'lst1':lst1,'lst2':lst2,'lst3':lst3,"val1":val1,"val2":val2,"val3":val3})
