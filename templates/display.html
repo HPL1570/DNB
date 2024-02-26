@@ -35,8 +35,11 @@
 
 
         } 
-
+        td {
+            font-size: 50px; 
+        }
             html {
+                
                 overflow-y: hidden;
             }
 
@@ -59,11 +62,16 @@
     </head>
 
     <body>
+        <header>
+            <div>
+                <h1 style="text-align: center; background-color: black; color: antiquewhite;">WELCOME TO DEPARMENT OF COMPUTER SCIENCE AND ENGINEERING</h1>
+            </div>
+        </header>
 
         <!-- Create a container for the typing effect -->
         {% if val == 0 %}
 
-    </body>
+        
 
 
         <!-- <p id="currentTime"></p>
@@ -78,13 +86,13 @@
             </form>
         </div> -->
         <!-- {% csrf_token %} -->
-        <h1 id="timeDisplay"></h1>
+        <h1 id="timeDisplay" style="text-align: center; background-color: #000; color: white;"></h1>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="4000">
             <div class="carousel-inner">
         
                 <!-- 2nd Year -->
                 <div class="carousel-item active">
-                    <h1>2nd Year</h1>
+                    <h1 style="text-align: center; background-color: antiquewhite;">2nd YEAR</h1>
                     {% if val1 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
@@ -103,13 +111,13 @@
                         {% endfor %}
                     </table>
                     {% else %}
-                    <h1>NO CLASSWORK</h1>
+                    <h1 style="text-align: center;">NO CLASSWORK</h1>
                     {% endif %}
                 </div>
         
                 <!-- 3rd Year -->
                 <div class="carousel-item">
-                    <h1>3rd Year</h1>
+                    <h1 style="text-align: center; background-color: antiquewhite;">3rd YEAR</h1>
                     {% if val2 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
@@ -128,13 +136,13 @@
                         {% endfor %}
                     </table>
                     {% else %}
-                    <h1>NO CLASSWORK</h1>
+                    <h1 style="text-align: center;">NO CLASSWORK</h1>
                     {% endif %}
                 </div>
         
                 <!-- 4th Year -->
                 <div class="carousel-item">
-                    <h1>4th Year</h1>
+                    <h1 style="text-align: center; background-color: antiquewhite;">4th YEAR</h1>
                     {% if val3 is not 0 %}
                     <table class="table table-bordered">
                         <thead class="thead-dark">
@@ -153,7 +161,7 @@
                         {% endfor %}
                     </table>
                     {% else %}
-                    <h1>NO CLASSWORK</h1>
+                    <h1 style="text-align: center;">NO CLASSWORK</h1>
                     {% endif %}
                 </div>
         
@@ -175,8 +183,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         
-
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var element = document.documentElement; // Fullscreen the entire document
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { /* Firefox */
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { /* IE/Edge */
+                    element.msRequestFullscreen();
+                }
+            });
+        </script>
+        <script>
+
             function updateTime() {
                 const now = new Date();
                 const day = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -332,6 +354,20 @@
                 changeTextColor();
             };
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var element = document.documentElement; // Fullscreen the entire document
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { /* Firefox */
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { /* IE/Edge */
+                    element.msRequestFullscreen();
+                }
+            });
+        </script>
         {% elif val == 2 %}
         <div class="typing-text1">
         <div id="carouselExample" class="carousel slide mt-2" data-ride="carousel" data-interval="5000">
@@ -373,6 +409,20 @@
             });
             
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var element = document.documentElement; // Fullscreen the entire document
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { /* Firefox */
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { /* IE/Edge */
+                    element.msRequestFullscreen();
+                }
+            });
+        </script>
         
         </div>
         
@@ -403,6 +453,20 @@
                 }
             }, 3000);
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var element = document.documentElement; // Fullscreen the entire document
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { /* Firefox */
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { /* IE/Edge */
+                    element.msRequestFullscreen();
+                }
+            });
+        </script>
         {% elif val == 4 %}
 
         
@@ -426,7 +490,7 @@
                 for (var pageNum = 1; pageNum <= numPages; pageNum++) {
                     // Fetch the page
                     pdf.getPage(pageNum).then(function (page) {
-                        var scale = 2.5;
+                        var scale = 1.5;
                         var viewport = page.getViewport({ scale: scale });
 
                         // Prepare canvas using PDF page dimensions
@@ -516,6 +580,7 @@
                 setTimeout(scrollPageDownSlowly, 3000);
             };
         </script>
+        
 
         {% endfor %}
 
@@ -528,6 +593,9 @@
                 location.reload(true); // true forces a reload from the server, not from the cache
             }
         </script>
+        
+        <footer></footer>
+        
     </body>
 
 </html>
